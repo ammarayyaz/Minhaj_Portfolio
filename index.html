@@ -2642,9 +2642,123 @@ body.dark-mode .metric-box-4 .metric-desc {
     margin-top: 56px;
   }
 
-  /* --- Hide left sidebar nav on mobile (use hamburger instead) --- */
+  /* --- Mobile navbar: full-screen overlay instead of left rail --- */
   .minimal-left-navbar {
-    display: none !important;
+    display: flex !important;         /* keep it in the DOM so JS can toggle */
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw !important;
+    height: 100dvh !important;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    padding: 80px 32px 40px;
+    background: rgba(255, 255, 255, 0.97) !important;
+    backdrop-filter: blur(24px) saturate(200%) !important;
+    -webkit-backdrop-filter: blur(24px) saturate(200%) !important;
+    border-right: none;
+    z-index: 1099;
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: transform 0.38s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.3s ease,
+                visibility 0.3s ease;
+  }
+
+  [data-theme="dark"] .minimal-left-navbar {
+    background: rgba(20, 23, 18, 0.97) !important;
+  }
+
+  /* When open, slide down into view */
+  .minimal-left-navbar:not(.closed) {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* Keep closed state hidden */
+  .minimal-left-navbar.closed {
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  /* Nav items: larger, horizontal icon+label layout in overlay */
+  .nav-items-stack {
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+    max-width: 280px;
+  }
+
+  .nav-item-btn {
+    width: 100%;
+    height: 56px;
+    border-radius: var(--radius-md);
+    justify-content: flex-start;
+    padding: 0 20px;
+    gap: 14px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--text-secondary);
+  }
+
+  .nav-item-btn:hover,
+  .nav-item-btn.active {
+    background: var(--bg-pill);
+    color: var(--accent-primary);
+  }
+
+  /* Show tooltip text as inline label in mobile overlay */
+  .nav-tooltip {
+    position: static;
+    transform: none;
+    opacity: 1;
+    visibility: visible;
+    background: transparent;
+    box-shadow: none;
+    backdrop-filter: none;
+    color: inherit;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    padding: 0;
+    margin: 0;
+    pointer-events: none;
+    display: block;
+  }
+
+  .tooltip-num {
+    color: var(--text-muted);
+    font-size: 0.72rem;
+    margin-right: 4px;
+  }
+
+  /* Hide nav indicator bar (not needed in overlay) */
+  .nav-indicator-track,
+  .nav-active-bar {
+    display: none;
+  }
+
+  /* Bottom controls row */
+  .nav-bottom-controls {
+    flex-direction: row;
+    gap: 12px;
+    margin-top: 24px;
+  }
+
+  .nav-ctrl-btn {
+    width: 52px;
+    height: 52px;
+    border-radius: var(--radius-md);
+    background: var(--bg-subtle);
   }
 
   /* --- Hero Frame Header --- */
@@ -2729,12 +2843,45 @@ body.dark-mode .metric-box-4 .metric-desc {
     height: 34px;
   }
 
-  /* --- Hamburger (show on mobile) --- */
+  /* --- Hamburger: larger tap target on mobile --- */
   .global-hamburger-btn {
-    top: 16px;
-    left: 16px;
-    width: 40px;
-    height: 40px;
+    top: 14px;
+    left: 14px;
+    width: 44px;
+    height: 44px;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: var(--radius-sm);
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 1100;
+  }
+
+  .global-hamburger-btn .ham-bar {
+    width: 100%;
+    height: 2px;
+  }
+
+  /* When menu is open, hamburger is above the overlay */
+  .global-hamburger-btn.is-active {
+    background: var(--bg-subtle);
+    position: fixed;
+    z-index: 1100;
+  }
+
+  /* Animate hamburger → X when active */
+  .global-hamburger-btn.is-active .ham-bar:nth-child(1) {
+    transform: translateY(9px) rotate(45deg);
+  }
+  .global-hamburger-btn.is-active .ham-bar:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  .global-hamburger-btn.is-active .ham-bar:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg);
   }
 
   /* --- Section Headers --- */
@@ -5098,6 +5245,10 @@ document.addEventListener('DOMContentLoaded', () => {
       hamburgerBtn.setAttribute('aria-expanded', 'true');
       hamburgerBtn.setAttribute('title', 'Close Navigation Menu');
     }
+    // Lock scroll on mobile when overlay is open
+    if (window.innerWidth <= 768) {
+      document.body.style.overflow = 'hidden';
+    }
     if (typeof onScrollSpy === 'function') {
       setTimeout(onScrollSpy, 60);
     }
@@ -5113,6 +5264,8 @@ document.addEventListener('DOMContentLoaded', () => {
       hamburgerBtn.setAttribute('aria-expanded', 'false');
       hamburgerBtn.setAttribute('title', 'Open Navigation Menu');
     }
+    // Restore scroll
+    document.body.style.overflow = '';
   }
 
   function toggleNavbar() {
