@@ -2628,19 +2628,86 @@ body.dark-mode .metric-box-4 .metric-desc {
   }
 }
 
+/* ==========================================================================
+   MOBILE — 768px and below
+   ========================================================================== */
 @media (max-width: 768px) {
+
+  /* --- Page Container --- */
   .page-container {
-    padding: 0 20px 80px;
+    padding: 0 16px 80px;
   }
 
   .section-block {
-    margin-top: 72px;
+    margin-top: 56px;
   }
 
+  /* --- Hide left sidebar nav on mobile (use hamburger instead) --- */
+  .minimal-left-navbar {
+    display: none !important;
+  }
+
+  /* --- Hero Frame Header --- */
+  .frame-header-bar {
+    padding: 16px 16px 16px 16px;
+  }
+
+  .frame-header-bar.scrolled {
+    padding: 12px 16px;
+  }
+
+  /* Hide desktop nav links, keep only right-side buttons */
+  .frame-nav-menu {
+    display: none;
+  }
+
+  .frame-header-right {
+    gap: 8px;
+    margin-left: auto;
+  }
+
+  .frame-action-btn .frame-btn-text {
+    display: none;
+  }
+
+  .frame-action-btn {
+    padding: 8px 10px;
+    gap: 0;
+  }
+
+  .frame-inquire-pill {
+    padding: 8px 14px;
+    font-size: 0.78rem;
+  }
+
+  /* --- Hero Center Content --- */
+  .frame-title-discover {
+    font-size: clamp(3.2rem, 16vw, 6rem);
+  }
+
+  .frame-kicker-tag {
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+  }
+
+  .frame-author-name {
+    font-size: 0.78rem;
+    letter-spacing: 0.2em;
+    margin-top: 10px;
+  }
+
+  /* --- Hero Bottom Bar --- */
   .frame-bottom-bar {
     grid-template-columns: 1fr;
-    gap: 20px;
-    padding: 24px 20px;
+    gap: 14px;
+    padding: 20px 16px;
+    align-items: flex-start;
+  }
+
+  .frame-bio-text {
+    font-size: 0.82rem;
+    max-width: 100%;
+    line-height: 1.55;
   }
 
   .frame-bottom-center {
@@ -2652,48 +2719,285 @@ body.dark-mode .metric-box-4 .metric-desc {
     justify-content: space-between;
   }
 
-  .minimal-left-navbar {
-    width: 60px;
+  .frame-social-row {
+    gap: 8px;
   }
 
+  .frame-social-link,
+  .frame-aux-btn {
+    width: 34px;
+    height: 34px;
+  }
+
+  /* --- Hamburger (show on mobile) --- */
+  .global-hamburger-btn {
+    top: 16px;
+    left: 16px;
+    width: 40px;
+    height: 40px;
+  }
+
+  /* --- Section Headers --- */
+  .section-header-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 28px;
+  }
+
+  .section-title {
+    font-size: clamp(1.7rem, 7vw, 2.4rem);
+  }
+
+  .section-kicker {
+    font-size: 0.7rem;
+  }
+
+  /* --- Films Showcase --- */
   .vertical-showcase-row {
-    padding: 24px;
+    padding: 16px;
+    gap: 20px;
+    border-radius: var(--radius-lg);
+  }
+
+  .showcase-video-player {
+    border-radius: var(--radius-md);
+    height: 56vw;
+    min-height: 200px;
+    max-height: 280px;
+  }
+
+  .showcase-title {
+    font-size: clamp(1.4rem, 6vw, 2rem);
+  }
+
+  .showcase-tagline {
+    font-size: 0.82rem;
+  }
+
+  .showcase-meta-pills {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .category-filter-nav {
+    gap: 4px;
+    padding: 4px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+  }
+
+  .category-filter-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .category-tab-btn {
+    white-space: nowrap;
+    font-size: 0.75rem;
+    padding: 6px 14px;
+  }
+
+  /* --- About Section --- */
+  .about-editorial-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .about-narrative-col {
+    padding: 24px 16px;
+  }
+
+  .about-portrait-col {
+    order: -1;
+  }
+
+  .portrait-frame {
+    height: 60vw;
+    max-height: 320px;
+    border-radius: var(--radius-lg);
+  }
+
+  .about-metrics-col {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .metric-num {
+    font-size: clamp(2rem, 8vw, 3rem);
   }
 
   .exp-row {
     grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 16px;
+  }
+
+  .academic-strip {
+    grid-template-columns: 1fr;
     gap: 12px;
-    padding: 20px;
   }
 
-  .about-narrative-col,
+  /* --- Gear Section --- */
+  #gear {
+    padding: 40px 16px 60px;
+  }
+
+  .cam-scrub-outer {
+    margin: 0 -16px 40px;
+    height: 250vh;
+  }
+
+  .cam-scrub-sticky {
+    height: 60vw;
+    min-height: 260px;
+    max-height: 380px;
+    position: sticky;
+    top: 0;
+  }
+
+  .cam-label-kicker {
+    font-size: 8px;
+    letter-spacing: 0.2em;
+  }
+
+  .cam-label-text {
+    font-size: 11px;
+  }
+
+  .cam-scrub-label {
+    bottom: 40px;
+    left: 16px;
+  }
+
+  .cam-scrub-hint {
+    bottom: 40px;
+    right: 16px;
+    font-size: 8px;
+  }
+
+  .gear-software-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
   .gear-sub-col {
-    padding: 24px;
+    padding: 20px 16px;
   }
 
-  .academic-strip,
-  .about-metrics-col,
+  .gear-spec-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .gear-spec-card {
+    padding: 14px 16px;
+  }
+
+  /* --- Contact Section --- */
+  .contact-glass-card {
+    padding: 32px 16px;
+    border-radius: var(--radius-lg);
+  }
+
   .form-row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .contact-social-pills {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  /* --- Footer --- */
+  .minimal-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 20px 0;
+  }
+
+  .footer-sep {
+    display: none;
+  }
+
+  /* --- Modal --- */
+  .modal-dialog {
+    padding: 24px 16px;
+    border-radius: var(--radius-lg);
+    max-width: 100%;
+  }
+
+  /* --- Preloader --- */
+  .preloader-logo-wrap {
+    width: 70vw;
+    max-width: 320px;
+  }
+
+  .preloader-meta-wrap {
+    width: 70vw;
+    max-width: 320px;
+  }
+}
+
+/* ==========================================================================
+   MOBILE SMALL — 480px and below
+   ========================================================================== */
+@media (max-width: 480px) {
+
+  .category-filter-nav {
+    flex-wrap: nowrap;
+    border-radius: var(--radius-lg);
+    overflow-x: auto;
+  }
+
+  .frame-title-discover {
+    font-size: clamp(2.8rem, 18vw, 5rem);
+  }
+
+  /* Hide bottom bio text on very small screens to reduce clutter */
+  .frame-bio-text {
+    display: none;
+  }
+
+  .frame-bottom-bar {
+    padding: 16px;
+    gap: 10px;
+  }
+
+  .section-title {
+    font-size: clamp(1.5rem, 8vw, 2rem);
+  }
+
+  .about-metrics-col {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .metric-num {
+    font-size: clamp(1.8rem, 9vw, 2.6rem);
+  }
+
+  .cam-scrub-sticky {
+    height: 55vw;
+    min-height: 220px;
+  }
+
+  .gear-spec-cards-grid {
     grid-template-columns: 1fr;
   }
 
   .contact-glass-card {
-    padding: 40px 20px;
+    padding: 24px 12px;
   }
 
-  .minimal-footer {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 14px;
+  .frame-inquire-pill span {
+    font-size: 0.75rem;
   }
 }
 
-@media (max-width: 480px) {
-  .category-filter-nav {
-    flex-wrap: wrap;
-    border-radius: var(--radius-lg);
-  }
-}
 
 </style>
 </head>
