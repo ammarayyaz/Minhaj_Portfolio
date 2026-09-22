@@ -1920,6 +1920,84 @@ body.dark-mode .metric-box-4 .metric-desc {
 }
 
 /* --------------------------------------------------------------------------
+   7b. Scroll-Scrub Camera Disassembly
+   -------------------------------------------------------------------------- */
+/* Outer scroll container — tall enough to give 300vh of scroll travel */
+.cam-scrub-outer {
+  position: relative;
+  height: 300vh;
+  margin: 0 -40px 60px;
+}
+/* Sticky inner — stays centered in the viewport while the outer scrolls */
+.cam-scrub-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+  overflow: hidden;
+}
+/* The canvas that draws each frame */
+.cam-scrub-canvas {
+  max-width: 100%;
+  max-height: 100vh;
+  object-fit: contain;
+  display: block;
+}
+/* Label overlay bottom-left */
+.cam-scrub-label {
+  position: absolute;
+  bottom: 60px;
+  left: 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  pointer-events: none;
+}
+.cam-label-kicker {
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  color: rgba(255,255,255,0.45);
+  text-transform: uppercase;
+}
+.cam-label-text {
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.85);
+  letter-spacing: 0.06em;
+  transition: opacity 0.25s;
+}
+/* Thin progress bar bottom */
+.cam-scrub-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: rgba(255,255,255,0.08);
+}
+.cam-scrub-bar {
+  height: 100%;
+  width: 0%;
+  background: rgba(255,255,255,0.6);
+  transition: width 0.05s linear;
+}
+/* Hint text fades out as scroll begins */
+.cam-scrub-hint {
+  position: absolute;
+  bottom: 60px;
+  right: 48px;
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  color: rgba(255,255,255,0.35);
+  text-transform: uppercase;
+  transition: opacity 0.4s;
+}
+
+/* --------------------------------------------------------------------------
    8. Cinema Gear & Software Stack (Apple Spec Grid)
    -------------------------------------------------------------------------- */
 .gear-software-grid {
@@ -3410,6 +3488,21 @@ body.dark-mode .metric-box-4 .metric-desc {
         </div>
       </div>
 
+      <!-- ░░ SCROLL-SCRUB CAMERA DISASSEMBLY ░░ -->
+      <div class="cam-scrub-outer" id="camScrubOuter">
+        <div class="cam-scrub-sticky">
+          <canvas class="cam-scrub-canvas" id="camScrubCanvas"></canvas>
+          <div class="cam-scrub-label" id="camScrubLabel">
+            <span class="cam-label-kicker">SONY α7 IV</span>
+            <span class="cam-label-text" id="camLabelText">Full-Frame Mirrorless</span>
+          </div>
+          <div class="cam-scrub-progress">
+            <div class="cam-scrub-bar" id="camScrubBar"></div>
+          </div>
+          <div class="cam-scrub-hint" id="camScrubHint">SCROLL TO DISASSEMBLE ↓</div>
+        </div>
+      </div>
+
       <div class="gear-software-grid">
         <!-- Production Gear Column -->
         <div class="gear-sub-col">
@@ -3662,7 +3755,103 @@ body.dark-mode .metric-box-4 .metric-desc {
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+  // ░░ SCROLL-SCRUB CAMERA DISASSEMBLY ENGINE ░░
+  (function initCamScrub() {
+    const TOTAL_FRAMES = 30;
+    const FRAME_DIR = 'frames/';
+
+    const canvas = document.getElementById('camScrubCanvas');
+    const outer  = document.getElementById('camScrubOuter');
+    const bar    = document.getElementById('camScrubBar');
+    const hint   = document.getElementById('camScrubHint');
+    const labelText = document.getElementById('camLabelText');
+    if (!canvas || !outer) return;
+
+    const ctx = canvas.getContext('2d');
+    const images = [];
+    let loadedCount = 0;
+    let currentFrame = 0;
+    let rafId = null;
+
+    // Frame label descriptions for each frame milestone
+    const frameLabels = [
+      [0,  'Full-Frame Mirrorless — Assembled'],
+      [4,  'Lens detaching from body mount'],
+      [9,  'Lens barrel separating'],
+      [14, 'Sensor & IBIS module exposed'],
+      [19, 'Internal components spreading'],
+      [24, 'Aperture iris & optics separated'],
+      [29, 'Sony α7 IV — Fully Disassembled'],
+    ];
+
+    function getLabelForFrame(f) {
+      let label = frameLabels[0][1];
+      for (const [idx, text] of frameLabels) {
+        if (f >= idx) label = text;
+      }
+      return label;
+    }
+
+    // Size canvas to natural image dimensions once first frame loads
+    function sizeCanvas(img) {
+      canvas.width  = img.naturalWidth  || img.width  || 1456;
+      canvas.height = img.naturalHeight || img.height || 816;
+    }
+
+    // Draw a specific frame index
+    function drawFrame(idx) {
+      const img = images[idx];
+      if (!img || !img.complete) return;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    }
+
+    // Preload all frames
+    for (let i = 1; i <= TOTAL_FRAMES; i++) {
+      const img = new Image();
+      const num = String(i).padStart(3, '0');
+      img.src = FRAME_DIR + 'frame_' + num + '.png';
+      img.onload = () => {
+        loadedCount++;
+        if (loadedCount === 1) { sizeCanvas(img); drawFrame(0); }
+        if (loadedCount === TOTAL_FRAMES) { drawFrame(currentFrame); }
+      };
+      images.push(img);
+    }
+
+    // Scroll handler: map scroll progress to frame
+    function onScroll() {
+      const rect = outer.getBoundingClientRect();
+      const outerH = outer.offsetHeight;
+      const viewH  = window.innerHeight;
+      // progress 0→1 over the scroll travel
+      const progress = Math.min(1, Math.max(0,
+        (-rect.top) / (outerH - viewH)
+      ));
+      const targetFrame = Math.min(TOTAL_FRAMES - 1, Math.floor(progress * TOTAL_FRAMES));
+
+      // Update progress bar
+      if (bar) bar.style.width = (progress * 100).toFixed(1) + '%';
+
+      // Fade out hint after first scroll
+      if (hint) hint.style.opacity = progress > 0.03 ? '0' : '1';
+
+      // Update label
+      if (labelText) labelText.textContent = getLabelForFrame(targetFrame);
+
+      if (targetFrame !== currentFrame) {
+        currentFrame = targetFrame;
+        cancelAnimationFrame(rafId);
+        rafId = requestAnimationFrame(() => drawFrame(currentFrame));
+      }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll(); // initial draw
+  })();
+
   const heroVideo = document.getElementById('heroVideo');
+
 
   // --- 0. Cinematic Studio Preloader / Starting Screen (High-Speed & Advanced) ---
   const studioPreloader = document.getElementById('studioPreloader');
