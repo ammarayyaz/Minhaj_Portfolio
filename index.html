@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minhaj Rasool — Cinematographer &amp; Photographer</title>
+  <meta name="description" content="Minimalist, cinematic portfolio of Minhaj Rasool. Commercial films, fashion campaigns, and editorial photography.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css?v=23">
+</head>
+<body>
+
+  <!-- Cinematic Studio Preloader / Starting Screen -->
+  <div class="studio-preloader" id="studioPreloader" title="Click anywhere to enter">
+    <div class="preloader-content">
+      <div class="preloader-logo-wrap">
+        <video 
+          id="preloaderVideo" 
+          class="preloader-video" 
+          autoplay 
+          muted 
+          playsinline 
+          preload="auto">
+          <source src="LOG_MR_reverse.mp4#t=0.55" type="video/mp4">
+          <source src="LOG_MR_reverse.webm#t=0.55" type="video/webm">
+        </video>
+      </div>
+      <div class="preloader-meta-wrap">
+        <div class="preloader-line-track">
+          <div class="preloader-line-bar" id="preloaderLineBar"></div>
+        </div>
+        <div class="preloader-label-row">
+          <span class="preloader-label-left">PORTFOLIO &mdash; 2026</span>
+          <span class="preloader-label-right" id="preloaderCounter">0%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fixed Hamburger Menu Toggle Button (always on top, never inside navbar) -->
+  <button class="global-hamburger-btn" id="hamburgerBtn" aria-label="Toggle navigation menu" title="Menu" aria-expanded="false">
+    <span class="ham-bar"></span>
+    <span class="ham-bar"></span>
+    <span class="ham-bar"></span>
+  </button>
+
+  <!-- Concise Minimalist Left-Side Navigation Bar -->
+  <aside class="minimal-left-navbar closed" id="minimalLeftNavbar" aria-label="Main Navigation">
+    <!-- Active Section Indicator Bar -->
+    <div class="nav-indicator-track">
+      <div class="nav-active-bar" id="navActiveBar"></div>
+    </div>
+
+    <!-- Center: Core Navigation Items -->
+    <nav class="nav-items-stack" id="navItemsStack">
+      <!-- 01: Reel / Discover -->
+      <a href="#heroFrame" class="nav-item-btn active" data-section="heroFrame" aria-label="Showreel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon">
+          <polygon points="5 3 19 12 5 21 5 3"></polygon>
+        </svg>
+        <span class="nav-tooltip"><strong class="tooltip-num">01</strong> REEL</span>
+      </a>
+
+      <!-- 02: Films & Vertical Cinema -->
+      <a href="#films" class="nav-item-btn" data-section="films" aria-label="Vertical Cinema & Films">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon">
+          <rect x="2" y="2" width="20" height="20" rx="2" ry="2"></rect>
+          <line x1="7" y1="2" x2="7" y2="22"></line>
+          <line x1="17" y1="2" x2="17" y2="22"></line>
+          <line x1="2" y1="12" x2="22" y2="12"></line>
+          <line x1="2" y1="7" x2="7" y2="7"></line>
+          <line x1="2" y1="17" x2="7" y2="17"></line>
+          <line x1="17" y1="7" x2="22" y2="7"></line>
+          <line x1="17" y1="17" x2="22" y2="17"></line>
+        </svg>
+        <span class="nav-tooltip"><strong class="tooltip-num">02</strong> FILMS</span>
+      </a>
+
+      <!-- 03: About -->
+      <a href="#about" class="nav-item-btn" data-section="about" aria-label="About Minhaj">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+        <span class="nav-tooltip"><strong class="tooltip-num">03</strong> ABOUT</span>
+      </a>
+
+      <!-- 04: Gear Rig -->
+      <a href="#gear" class="nav-item-btn" data-section="gear" aria-label="Cinema Gear Rig">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon">
+          <circle cx="12" cy="12" r="3"></circle>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+        </svg>
+        <span class="nav-tooltip"><strong class="tooltip-num">04</strong> GEAR RIG</span>
+      </a>
+
+      <!-- 05: Contact / Inquire -->
+      <a href="#contact" class="nav-item-btn" data-section="contact" id="leftInquireBtn" aria-label="Inquire">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+          <polyline points="22,6 12,13 2,6"></polyline>
+        </svg>
+        <span class="nav-tooltip"><strong class="tooltip-num">05</strong> INQUIRE</span>
+      </a>
+
+
+    </nav>
+
+    <!-- Bottom: Utility Quick Controls (Sound & Theme) -->
+    <div class="nav-bottom-controls">
+      <!-- Sound Toggle -->
+      <button class="nav-ctrl-btn" id="leftSoundToggleBtn" aria-label="Toggle Sound" title="Sound (M)">
+        <div class="nav-sound-icon-wrap" id="leftSoundIconWrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon icon-muted" id="leftIconMuted">
+            <line x1="1" y1="1" x2="23" y2="23"></line>
+            <path d="M9 9v3a3 3 0 0 0 5.12 2.12M15 9.34V4a3 3 0 0 0-5.94-.6"></path>
+            <path d="M17 16.95A7 7 0 0 1 5 12v-2m14 0v2a7 7 0 0 1-.11 1.23"></path>
+            <line x1="12" y1="19" x2="12" y2="23"></line>
+            <line x1="8" y1="23" x2="16" y2="23"></line>
+          </svg>
+          <div class="nav-sound-wave" id="leftSoundWave" style="display: none;">
+            <span class="wave-bar bar-1"></span>
+            <span class="wave-bar bar-2"></span>
+            <span class="wave-bar bar-3"></span>
+          </div>
+        </div>
+        <span class="nav-tooltip">SOUND [M]</span>
+      </button>
+
+      <!-- Theme Switcher -->
+      <button class="nav-ctrl-btn" id="leftThemeToggleBtn" aria-label="Toggle Theme" title="Theme (T)">
+        <div class="nav-theme-icon-wrap" id="leftThemeIconWrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon icon-theme-sun" id="leftIconSun">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon icon-theme-moon" id="leftIconMoon" style="display: none;">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </div>
+        <span class="nav-tooltip">THEME [T]</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Floating UI Frame Canvas Stage (Inspired by Adobe XD Parallax Design) -->
+  <div class="frame-canvas-stage">
+    
+    <!-- Floating Elevated UI Card -->
+    <div class="ui-frame-card" id="heroFrame">
+      
+      <!-- Inner Frame Header Bar -->
+      <header class="frame-header-bar">
+        <div class="frame-header-left">
+          <nav class="frame-nav-menu">
+            <a href="#films" class="frame-nav-link">Films</a>
+            <a href="#about" class="frame-nav-link">About</a>
+            <a href="#gear" class="frame-nav-link">Gear</a>
+            <a href="#contact" class="frame-nav-link">Contact</a>
+          </nav>
+        </div>
+
+        <div class="frame-header-right">
+          <button class="frame-action-btn" id="themeToggleBtn" aria-label="Toggle Theme" title="Toggle Light / Dark Mode (T)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon icon-theme-sun" id="headerIconSun">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon icon-theme-moon" id="headerIconMoon" style="display: none;">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+            <span id="themeLabel" class="frame-btn-text">Light</span>
+          </button>
+
+          <button class="frame-action-btn" id="soundToggleBtn" aria-label="Toggle Sound" title="Toggle Audio (M)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon icon-muted" id="iconMuted">
+              <line x1="1" y1="1" x2="23" y2="23"></line>
+              <path d="M9 9v3a3 3 0 0 0 5.12 2.12M15 9.34V4a3 3 0 0 0-5.94-.6"></path>
+              <path d="M17 16.95A7 7 0 0 1 5 12v-2m14 0v2a7 7 0 0 1-.11 1.23"></path>
+              <line x1="12" y1="19" x2="12" y2="23"></line>
+              <line x1="8" y1="23" x2="16" y2="23"></line>
+            </svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon icon-sound" id="iconSound" style="display: none;">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+              <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+            </svg>
+            <span id="soundLabel" class="frame-btn-text">Sound</span>
+          </button>
+
+          <button class="frame-inquire-pill" id="openInquireHeaderBtn">
+            <span>Contact</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Video Viewport inside Frame -->
+      <div class="frame-video-viewport" id="heroVideoWrapper">
+        <video 
+          id="heroVideo" 
+          class="frame-video-main" 
+          src="films/fashion-film.mp4" 
+          autoplay 
+          muted 
+          loop 
+          playsinline 
+          preload="auto">
+        </video>
+        <div class="frame-video-scrim"></div>
+      </div>
+
+      <!-- Center 3D Parallax Headline: PORTFOLIO -->
+      <div class="frame-center-content" id="frameCenterContent">
+        <span class="frame-kicker-tag">CINEMATOGRAPHER / PHOTOGRAPHER</span>
+        <h1 class="frame-title-discover" id="frameHeadline">PORTFOLIO</h1>
+        <span class="frame-author-name">MINHAJ RASOOL</span>
+      </div>
+
+      <!-- Frame Bottom Bar -->
+      <div class="frame-bottom-bar">
+        <!-- Left: 3-line Editorial Paragraph -->
+        <div class="frame-bottom-left">
+          <p class="frame-bio-text">
+            Crafting evocative visual narratives across commercial campaigns, high fashion, and documentary cinema.
+          </p>
+        </div>
+
+        <!-- Center: Outlined Glassmorphic Button -->
+        <div class="frame-bottom-center">
+          <button class="frame-start-btn" id="frameStartBtn">
+            <span>START HERE</span>
+          </button>
+        </div>
+
+        <!-- Right: Social Media Icons + Aux Controls -->
+        <div class="frame-bottom-right">
+          <div class="frame-social-row">
+            <a href="https://www.youtube.com/@minhajrasool9922/videos" target="_blank" rel="noopener" class="frame-social-link" aria-label="YouTube" title="YouTube Channel">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon">
+                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
+                <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+              </svg>
+            </a>
+            <a href="https://www.instagram.com/minhaj_2.0/" target="_blank" rel="noopener" class="frame-social-link" aria-label="Instagram" title="Instagram Profile">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+              </svg>
+            </a>
+            <a href="https://www.linkedin.com/in/minhaj-rasool-5b403921b/" target="_blank" rel="noopener" class="frame-social-link" aria-label="LinkedIn" title="LinkedIn Profile">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                <rect x="2" y="9" width="4" height="12"></rect>
+                <circle cx="4" cy="4" r="2"></circle>
+              </svg>
+            </a>
+          </div>
+
+          <!-- Video Aux Controls -->
+          <div class="frame-aux-controls">
+            <button class="frame-aux-btn" id="playPauseBtn" aria-label="Play/Pause" title="Play / Pause (Space)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon icon-pause" id="iconPause">
+                <rect x="6" y="4" width="4" height="16"></rect>
+                <rect x="14" y="4" width="4" height="16"></rect>
+              </svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon icon-play" id="iconPlay" style="display: none;">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+            </button>
+
+            <button class="frame-aux-btn" id="cinemaModeBtn" aria-label="Cinema Mode" title="Cinema View">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon">
+                <circle cx="12" cy="12" r="2"></circle>
+                <path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"></path>
+              </svg>
+            </button>
+
+            <button class="frame-aux-btn" id="fullscreenBtn" aria-label="Fullscreen" title="Fullscreen (F)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon">
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <polyline points="9 21 3 21 3 15"></polyline>
+                <line x1="21" y1="3" x2="14" y2="10"></line>
+                <line x1="3" y1="21" x2="10" y2="14"></line>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hidden compatibility elements for script.js -->
+      <span class="film-title-tag" id="currentFilmTitle" style="display: none;">Showreel 2024–2026</span>
+      <button class="video-ctrl-btn" id="fitFillBtn" style="display: none;"><span id="fitFillLabel">Fill</span></button>
+      <button class="hero-sound-hint" id="heroSoundHint" style="display: none;"><span>Turn on Audio</span></button>
+
+      <!-- Exit Cinema Button -->
+      <button class="exit-cinema-btn" id="exitCinemaBtn" aria-label="Exit Cinema Mode">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+        <span>Exit Cinema</span>
+      </button>
+
+      <!-- Video Progress Scrubber Bar -->
+      <div class="video-progress-container" id="progressContainer" title="Click to scrub playback">
+        <div class="video-progress-bar" id="progressBar"></div>
+        <span class="video-time-bubble" id="timeBubble">00:00</span>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- Rest of Content Sections inside Page Container -->
+  <main class="page-container">
+
+    <!-- Kinetic Scroll Manifesto Section (Word-by-Word Scroll Reveal & Spacing) -->
+    <section class="scroll-manifesto-section" id="manifesto">
+      <div class="manifesto-wrap">
+        <span class="manifesto-kicker">CINEMATIC ESSENCE</span>
+        <h2 class="manifesto-text" id="manifestoText">Crafting evocative visual narratives across commercial campaigns, high fashion, and documentary cinema with architectural light, rhythm, and raw human emotion.</h2>
+      </div>
+    </section>
+
+    <!-- Unified Vertical Cinema & Campaign Showcase Section -->
+    <section class="section-block edge-to-edge-section unified-vertical-section" id="films">
+      <div id="campaigns" style="position: absolute; top: 0; pointer-events: none;"></div>
+
+      <div class="films-content-wrap">
+        <div class="section-header-row">
+          <div>
+            <span class="section-kicker">FEATURED COMMERCIAL &amp; FASHION CAMPAIGNS</span>
+            <h2 class="section-title">Selected Works</h2>
+          </div>
+          <span class="section-counter">02 / 04</span>
+        </div>
+
+        <!-- Interactive Category Filter Navigation Bar -->
+        <div class="category-filter-nav" id="categoryFilterNav">
+          <button class="category-tab-btn active" data-filter="all">All Works</button>
+          <button class="category-tab-btn" data-filter="corporate">Corporate Work</button>
+          <button class="category-tab-btn" data-filter="personal">Personal Work</button>
+          <button class="category-tab-btn" data-filter="mg-apparel">MG Apparel Work</button>
+        </div>
+      </div>
+
+      <!-- Scroll-Driven In-Depth Video Breakdown Stack (1 by 1 as user scrolls down) -->
+      <div class="vertical-showcase-stack" id="verticalShowcaseStack">
+
+        <!-- Showcase Item 1: Solo Female Campaign (Info Left, Video Right) -->
+        <article class="vertical-showcase-row layout-right-video" 
+                 id="showcase-item-1"
+                 data-category="mg-apparel personal corporate" 
+                 data-video-src="films/female-campaign.mp4" 
+                 data-title="Elysian Silhouette — High-Fashion Campaign"
+                 data-client="MG Apparel / Verve Collection">
+          
+          <!-- Ambient Synchronized Video Backdrop (Full Section / 16:9 Ambient Cover) -->
+          <div class="showcase-ambient-backdrop">
+            <video class="showcase-ambient-video" src="films/female-campaign.mp4" muted loop playsinline preload="metadata"></video>
+            <div class="showcase-ambient-scrim"></div>
+          </div>
+
+          <div class="showcase-info-col">
+            <div class="showcase-header-tag">
+              <span class="showcase-index-pill">01 / 03</span>
+              <span class="showcase-client-tag">MG APPAREL &mdash; VERVE COLLECTION</span>
+            </div>
+
+            <h3 class="showcase-video-title">Elysian Silhouette</h3>
+            <p class="showcase-video-kicker">High-Fashion Editorial Motion</p>
+
+            <p class="showcase-video-desc">
+              An intimate high-fashion study in movement and silhouette, capturing natural drape, architectural lighting transitions, and fluid model expression for the Verve collection.
+            </p>
+
+            <div class="showcase-specs-list">
+              <span class="spec-pill">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+                9:16 Vertical Master
+              </span>
+              <span class="spec-pill">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                Sony A7R II / Sigma 24–70mm f/2.8
+              </span>
+              <span class="spec-pill">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                Studio Continuous Lighting
+              </span>
+              <span class="spec-pill">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon"><path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"></path><line x1="16" y1="8" x2="2" y2="22"></line><line x1="17.5" y1="15" x2="9" y2="15"></line></svg>
+                Editorial Cinematography
+              </span>
+            </div>
+
+            <div class="showcase-cta-row">
+              <button class="showcase-cta-btn showcase-btn-primary edge-cinema-view-btn" type="button" aria-label="Open Full Cinema Mode">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon">
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <polyline points="9 21 3 21 3 15"></polyline>
+                  <line x1="21" y1="3" x2="14" y2="10"></line>
+                  <line x1="3" y1="21" x2="10" y2="14"></line>
+                </svg>
+                <span>Fullscreen View</span>
+              </button>
+
+              <button class="showcase-cta-btn showcase-btn-sound" type="button" aria-label="Toggle Video Sound">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon sound-off-icon">
+                  <line x1="1" y1="1" x2="23" y2="23"></line>
+                  <path d="M9 9v3a3 3 0 0 0 5.12 2.12M15 9.34V4a3 3 0 0 0-5.94-.6"></path>
+                  <path d="M17 16.95A7 7 0 0 1 5 12v-2m14 0v2a7 7 0 0 1-.11 1.23"></path>
+                </svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon sound-on-icon" style="display: none;">
+                  <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                  <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                </svg>
+                <span class="sound-label">Audio Off</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="showcase-video-col">
+            <div class="showcase-clean-video-frame">
+              <video 
+                class="showcase-media-video edge-media-video" 
+                src="films/female-campaign.mp4" 
+                muted 
+                loop 
+                playsinline 
+                preload="metadata">
+              </video>
+
+              <div class="showcase-play-overlay">
+                <div class="showcase-play-bubble">
+                  <svg viewBox="0 0 24 24" fill="currentColor" class="showcase-icon-play">
+                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                  </svg>
+                  <svg viewBox="0 0 24 24" fill="currentColor" class="showcase-icon-pause" style="display: none;">
+                    <rect x="6" y="4" width="4" height="16"></rect>
+                    <rect x="14" y="4" width="4" height="16"></rect>
+                  </svg>
+                </div>
+              </div>
+
+              <div class="showcase-hud-bottom">
+                <div class="showcase-progress-track" title="Click to scrub">
+                  <div class="showcase-progress-bar"></div>
+                </div>
+                <div class="showcase-hud-bar">
+                  <span class="showcase-time-display">00:00</span>
+                  <button class="showcase-hud-sound-toggle" type="button" title="Sound Toggle" aria-label="Toggle sound">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="hud-sound-icon-muted">
+                      <line x1="1" y1="1" x2="23" y2="23"></line>
+                      <path d="M9 9v3a3 3 0 0 0 5.12 2.12M15 9.34V4a3 3 0 0 0-5.94-.6"></path>
+                      <path d="M17 16.95A7 7 0 0 1 5 12v-2m14 0v2a7 7 0 0 1-.11 1.23"></path>
+                    </svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="hud-sound-icon-active" style="display: none;">
+                      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                      <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Showcase Item 2: Combo Campaign Shoot (Video Left, Info Right) -->
+        <article class="vertical-showcase-row layout-left-video" 
+                 id="showcase-item-2"
+                 data-category="corporate mg-apparel" 
+                 data-video-src="films/combo-campaign.mp4" 
+                 data-title="Convergence — Dual Motion Campaign"
+                 data-client="MG Apparel / Verve Collection">
+          
+          <!-- Ambient Synchronized Video Backdrop (Full Section / 16:9 Ambient Cover) -->
+          <div class="showcase-ambient-backdrop">
+            <video class="showcase-ambient-video" src="films/combo-campaign.mp4" muted loop playsinline preload="metadata"></video>
+            <div class="showcase-ambient-scrim"></div>
+          </div>
+
+          <div class="showcase-info-col">
+            <div class="showcase-header-tag">
+              <span class="showcase-index-pill">02 / 03</span>
+              <span class="showcase-client-tag">MG APPAREL &mdash; VERVE COLLECTION</span>
+            </div>
+
+            <h3 class="showcase-video-title">Convergence</h3>
+            <p class="showcase-video-kicker">Flagship Dual-Talent Campaign</p>
+
+            <p class="showcase-video-desc">
+              High-energy commercial staging featuring synchronized talent movement, motorized gimbal tracking, and dynamic contrast grading tailored for multi-platform seasonal release.
+            </p>
+
+            <div class="showcase-specs-list">
+              <span class="spec-pill">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+                9:16 Vertical Master
+              </span>
+              <span class="spec-pill">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                DJI RS4 Motorized Gimbal
+              </span>
+              <span class="spec-pill">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                60fps High Frame Rate
+              </span>
+              <span class="spec-pill">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon"><path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"></path><line x1="16" y1="8" x2="2" y2="22"></line><line x1="17.5" y1="15" x2="9" y2="15"></line></svg>
+                Commercial Staging &amp; Direction
+              </span>
+            </div>
+
+            <div class="showcase-cta-row">
+              <button class="showcase-cta-btn showcase-btn-primary edge-cinema-view-btn" type="button" aria-label="Open Full Cinema Mode">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon">
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <polyline points="9 21 3 21 3 15"></polyline>
+                  <line x1="21" y1="3" x2="14" y2="10"></line>
+                  <line x1="3" y1="21" x2="10" y2="14"></line>
+                </svg>
+                <span>Fullscreen View</span>
+              </button>
+
+              <button class="showcase-cta-btn showcase-btn-sound" type="button" aria-label="Toggle Video Sound">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon sound-off-icon">
+                  <line x1="1" y1="1" x2="23" y2="23"></line>
+                  <path d="M9 9v3a3 3 0 0 0 5.12 2.12M15 9.34V4a3 3 0 0 0-5.94-.6"></path>
+                  <path d="M17 16.95A7 7 0 0 1 5 12v-2m14 0v2a7 7 0 0 1-.11 1.23"></path>
+                </svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon sound-on-icon" style="display: none;">
+                  <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                  <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                </svg>
+                <span class="sound-label">Audio Off</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="showcase-video-col">
+            <div class="showcase-clean-video-frame">
+              <video 
+                class="showcase-media-video edge-media-video" 
+                src="films/combo-campaign.mp4" 
+                muted 
+                loop 
+                playsinline 
+                preload="metadata">
+              </video>
+
+              <div class="showcase-play-overlay">
+                <div class="showcase-play-bubble">
+                  <svg viewBox="0 0 24 24" fill="currentColor" class="showcase-icon-play">
+                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                  </svg>
+                  <svg viewBox="0 0 24 24" fill="currentColor" class="showcase-icon-pause" style="display: none;">
+                    <rect x="6" y="4" width="4" height="16"></rect>
+                    <rect x="14" y="4" width="4" height="16"></rect>
+                  </svg>
+                </div>
+              </div>
+
+              <div class="showcase-hud-bottom">
+                <div class="showcase-progress-track" title="Click to scrub">
+                  <div class="showcase-progress-bar"></div>
+                </div>
+                <div class="showcase-hud-bar">
+                  <span class="showcase-time-display">00:00</span>
+                  <button class="showcase-hud-sound-toggle" type="button" title="Sound Toggle" aria-label="Toggle sound">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="hud-sound-icon-muted">
+                      <line x1="1" y1="1" x2="23" y2="23"></line>
+                      <path d="M9 9v3a3 3 0 0 0 5.12 2.12M15 9.34V4a3 3 0 0 0-5.94-.6"></path>
+                      <path d="M17 16.95A7 7 0 0 1 5 12v-2m14 0v2a7 7 0 0 1-.11 1.23"></path>
+                    </svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="hud-sound-icon-active" style="display: none;">
+                      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                      <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Showcase Item 3: Commercial Web Reel (Info Left, Video Right) -->
+        <article class="vertical-showcase-row layout-right-video" 
+                 id="showcase-item-3"
+                 data-category="personal mg-apparel corporate" 
+                 data-video-src="films/draft-4.mp4" 
+                 data-title="Kinetic Rhythm — Commercial Montage"
+                 data-client="MG Apparel / Digital Release">
+          
+          <!-- Ambient Synchronized Video Backdrop (Full Section / 16:9 Ambient Cover) -->
+          <div class="showcase-ambient-backdrop">
+            <video class="showcase-ambient-video" src="films/draft-4.mp4" muted loop playsinline preload="metadata"></video>
+            <div class="showcase-ambient-scrim"></div>
+          </div>
+
+          <div class="showcase-info-col">
+            <div class="showcase-header-tag">
+              <span class="showcase-index-pill">03 / 03</span>
+              <span class="showcase-client-tag">MG APPAREL &mdash; DIGITAL RELEASE</span>
+            </div>
+
+            <h3 class="showcase-video-title">Kinetic Rhythm</h3>
+            <p class="showcase-video-kicker">Omnichannel Commercial Montage</p>
+
+            <p class="showcase-video-desc">
+              Fast-paced editorial montage cut to micro-beat audio transitions, engineered for maximum audience retention across modern digital platforms.
+            </p>
+
+            <div class="showcase-specs-list">
+              <span class="spec-pill">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+                9:16 Vertical Master
+              </span>
+              <span class="spec-pill">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                Adobe Premiere Pro Suite
+              </span>
+              <span class="spec-pill">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                Micro-Beat Audio Sync
+              </span>
+              <span class="spec-pill">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon"><path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"></path><line x1="16" y1="8" x2="2" y2="22"></line><line x1="17.5" y1="15" x2="9" y2="15"></line></svg>
+                Post-Production &amp; Montage
+              </span>
+            </div>
+
+            <div class="showcase-cta-row">
+              <button class="showcase-cta-btn showcase-btn-primary edge-cinema-view-btn" type="button" aria-label="Open Full Cinema Mode">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon">
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <polyline points="9 21 3 21 3 15"></polyline>
+                  <line x1="21" y1="3" x2="14" y2="10"></line>
+                  <line x1="3" y1="21" x2="10" y2="14"></line>
+                </svg>
+                <span>Fullscreen View</span>
+              </button>
+
+              <button class="showcase-cta-btn showcase-btn-sound" type="button" aria-label="Toggle Video Sound">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon sound-off-icon">
+                  <line x1="1" y1="1" x2="23" y2="23"></line>
+                  <path d="M9 9v3a3 3 0 0 0 5.12 2.12M15 9.34V4a3 3 0 0 0-5.94-.6"></path>
+                  <path d="M17 16.95A7 7 0 0 1 5 12v-2m14 0v2a7 7 0 0 1-.11 1.23"></path>
+                </svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon sound-on-icon" style="display: none;">
+                  <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                  <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                </svg>
+                <span class="sound-label">Audio Off</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="showcase-video-col">
+            <div class="showcase-clean-video-frame">
+              <video 
+                class="showcase-media-video edge-media-video" 
+                src="films/draft-4.mp4" 
+                muted 
+                loop 
+                playsinline 
+                preload="metadata">
+              </video>
+
+              <div class="showcase-play-overlay">
+                <div class="showcase-play-bubble">
+                  <svg viewBox="0 0 24 24" fill="currentColor" class="showcase-icon-play">
+                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                  </svg>
+                  <svg viewBox="0 0 24 24" fill="currentColor" class="showcase-icon-pause" style="display: none;">
+                    <rect x="6" y="4" width="4" height="16"></rect>
+                    <rect x="14" y="4" width="4" height="16"></rect>
+                  </svg>
+                </div>
+              </div>
+
+              <div class="showcase-hud-bottom">
+                <div class="showcase-progress-track" title="Click to scrub">
+                  <div class="showcase-progress-bar"></div>
+                </div>
+                <div class="showcase-hud-bar">
+                  <span class="showcase-time-display">00:00</span>
+                  <button class="showcase-hud-sound-toggle" type="button" title="Sound Toggle" aria-label="Toggle sound">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="hud-sound-icon-muted">
+                      <line x1="1" y1="1" x2="23" y2="23"></line>
+                      <path d="M9 9v3a3 3 0 0 0 5.12 2.12M15 9.34V4a3 3 0 0 0-5.94-.6"></path>
+                      <path d="M17 16.95A7 7 0 0 1 5 12v-2m14 0v2a7 7 0 0 1-.11 1.23"></path>
+                    </svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="hud-sound-icon-active" style="display: none;">
+                      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                      <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- About & Narrative Profile -->
+    <section class="section-block cine-panel" id="about">
+      <div class="section-header-row">
+        <div>
+          <span class="section-kicker">PROFILE / DISCIPLINE</span>
+          <h2 class="section-title">Background &amp; Philosophy</h2>
+        </div>
+        <div class="header-meta-badge">
+          <span class="section-counter">03 / 04</span>
+        </div>
+      </div>
+
+      <div class="about-editorial-grid">
+        <div class="about-narrative-col">
+          <p class="editorial-lead">
+            Visual storyteller and production specialist with 5+ years of experience across commercial photography, videography, and post-production for fashion, corporate, and documentary cinema.
+          </p>
+          <p class="editorial-body">
+            Currently leads end-to-end photography and videography for <strong>MG Apparel</strong>, delivering flagship campaigns spanning product launches, sustainability initiatives (World Cotton Day, Handloom Documentary), and employer branding. Founder of <strong>MR Highlights</strong>, an acclaimed studio with over 100+ projects completed.
+          </p>
+          <p class="editorial-body">
+            Combines strong technical command of camera optics, chiaroscuro lighting design, and precision color grading with a business degree background that sharpens client communication, budgeting, and cross-team coordination.
+          </p>
+
+          <!-- Core Academic & Training Badges -->
+          <div class="academic-strip">
+            <div class="academic-item">
+              <span class="academic-tag">HONOR</span>
+              <span class="academic-degree">BBA (Accounting &amp; Finance)</span>
+              <span class="academic-school">Air University &mdash; Silver Medalist (2nd in Cohort)</span>
+            </div>
+            <div class="academic-item">
+              <span class="academic-tag">DIRECTING</span>
+              <span class="academic-degree">Filmmaking Certification</span>
+              <span class="academic-school">LUMS &mdash; Creative Production &amp; Directing</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="about-metrics-col">
+          <div class="metric-box metric-box-1">
+            <span class="metric-tag">EXP / 01</span>
+            <span class="metric-num">5+</span>
+            <span class="metric-desc">Years in Commercial Production</span>
+          </div>
+          <div class="metric-box metric-box-2">
+            <span class="metric-tag">PROJ / 02</span>
+            <span class="metric-num">100+</span>
+            <span class="metric-desc">Studio &amp; Film Projects Delivered</span>
+          </div>
+          <div class="metric-box metric-box-3">
+            <span class="metric-tag">HONOR / 03</span>
+            <span class="metric-num">2nd</span>
+            <span class="metric-desc">Silver Medalist Academic Honor</span>
+          </div>
+          <div class="metric-box metric-box-4">
+            <span class="metric-tag">PIPELINE / 04</span>
+            <span class="metric-num">100%</span>
+            <span class="metric-desc">End-to-End Pipeline Ownership</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Experience Narrative Table -->
+      <div class="editorial-experience-list">
+        <div class="exp-row">
+          <div class="exp-time-col">
+            <span class="exp-period">2023 &ndash; Present</span>
+            <span class="exp-badge">CURRENT</span>
+          </div>
+          <div class="exp-details">
+            <h3 class="exp-role">Photography &amp; Videography Specialist</h3>
+            <span class="exp-company">MG Apparel</span>
+            <p class="exp-summary">Lead in-house visual content production for a major apparel brand. Direct and shoot fashion, e-commerce, commercial videos, and flagship sustainability documentaries.</p>
+          </div>
+        </div>
+
+        <div class="exp-row">
+          <div class="exp-time-col">
+            <span class="exp-period">2019 &ndash; Present</span>
+            <span class="exp-badge">STUDIO</span>
+          </div>
+          <div class="exp-details">
+            <h3 class="exp-role">Founder &amp; Lead Cinematographer</h3>
+            <span class="exp-company">MR Highlights</span>
+            <p class="exp-summary">Produced 100+ wedding and commercial projects. Direct multi-location shoots, manage color grading pipeline, and retain repeat enterprise commercial clients.</p>
+          </div>
+        </div>
+
+        <div class="exp-row">
+          <div class="exp-time-col">
+            <span class="exp-period">2021 &ndash; 2023</span>
+            <span class="exp-badge">OPERATIONS</span>
+          </div>
+          <div class="exp-details">
+            <h3 class="exp-role">Management Trainee Officer &ndash; HR</h3>
+            <span class="exp-company">Volka Foods International</span>
+            <p class="exp-summary">Cross-functional business role that honed stakeholder management, reporting, and team coordination now applied directly to large-scale creative productions.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gear & Software Stack (Architectural Photographic Spec Grid) -->
+    <section class="section-block cine-panel" id="gear">
+      <div class="section-header-row">
+        <div>
+          <span class="section-kicker">ARSENAL / CAPABILITIES</span>
+          <h2 class="section-title">Cinema Gear &amp; Software Stack</h2>
+        </div>
+        <div class="header-meta-badge">
+          <span class="section-counter">04 / 04</span>
+        </div>
+      </div>
+
+      <div class="gear-software-grid">
+        <!-- Production Gear Column -->
+        <div class="gear-sub-col">
+          <div class="gear-col-header">
+            <span class="gear-sub-kicker">HARDWARE RIG</span>
+            <h3 class="minimal-heading">Production Arsenal</h3>
+          </div>
+
+          <div class="gear-spec-cards-grid">
+            <div class="gear-spec-card">
+              <span class="gear-spec-tag">BODY / SENSOR</span>
+              <strong class="gear-spec-title">Sony A7 III / Sony A7R II</strong>
+              <span class="gear-spec-detail">Full-Frame 4K HDR, S-Log3 Gamut, Dual Native ISO</span>
+            </div>
+
+            <div class="gear-spec-card">
+              <span class="gear-spec-tag">STABILIZATION / MOTION</span>
+              <strong class="gear-spec-title">DJI RS4 Motorized Gimbal</strong>
+              <span class="gear-spec-detail">3-Axis Motorized Tracking, Fluid Cinematic Movement</span>
+            </div>
+
+            <div class="gear-spec-card">
+              <span class="gear-spec-tag">OPTICS / GLASS</span>
+              <strong class="gear-spec-title">Sigma 24–70mm f/2.8 / 35mm f/1.4 / 50mm f/1.8</strong>
+              <span class="gear-spec-detail">Fast Cine Primes &amp; Standard Zooms, Bokeh &amp; Low-Light Isolation</span>
+            </div>
+
+            <div class="gear-spec-card">
+              <span class="gear-spec-tag">LIGHTING / AUDIO</span>
+              <strong class="gear-spec-title">Studio Continuous High-CRI / Wireless Audio</strong>
+              <span class="gear-spec-detail">Chiaroscuro Shaping, 24-Bit Dual-Channel Wireless Transmission</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Post-Production Column -->
+        <div class="gear-sub-col">
+          <div class="gear-col-header">
+            <span class="gear-sub-kicker">WORKFLOW / PIPELINE</span>
+            <h3 class="minimal-heading">Post-Production Stack</h3>
+          </div>
+
+          <div class="gear-spec-cards-grid">
+            <div class="gear-spec-card">
+              <span class="gear-spec-tag">EDITING / SOUND</span>
+              <strong class="gear-spec-title">Adobe Premiere Pro / Sound Design</strong>
+              <span class="gear-spec-detail">Non-Linear 4K Timeline, Multi-Track Spatial Audio Mixing</span>
+            </div>
+
+            <div class="gear-spec-card">
+              <span class="gear-spec-tag">COLOR / RETOUCHING</span>
+              <strong class="gear-spec-title">Adobe Lightroom / Photoshop</strong>
+              <span class="gear-spec-detail">Custom Film Emulations, Commercial High-End Skin Retouching</span>
+            </div>
+
+            <div class="gear-spec-card">
+              <span class="gear-spec-tag">COLOR SPACE / MASTERING</span>
+              <strong class="gear-spec-title">S-Log3 / RAW Curves / 4K DCI</strong>
+              <span class="gear-spec-detail">10-Bit Color Pipeline, Rec.709 &amp; Social Platform Delivery</span>
+            </div>
+
+            <div class="gear-spec-card">
+              <span class="gear-spec-tag">GENERATIVE / PRODUCTION</span>
+              <strong class="gear-spec-title">Adobe Firefly / Cloud Dailies</strong>
+              <span class="gear-spec-detail">Generative Asset Pipeline, Rapid Client Proofing &amp; Delivery</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact & Direct Inquiries with 16:9 Chef Video Background & Frosted Glassmorphic Overlay -->
+    <section class="section-block contact-block cine-panel" id="contact">
+      <!-- 16:9 Cinematic Video Viewport Background -->
+      <div class="contact-video-stage">
+        <video 
+          id="contactBgVideo" 
+          class="contact-video-media" 
+          autoplay 
+          muted 
+          loop 
+          playsinline 
+          preload="auto">
+          <source src="films/draft-4.mp4" type="video/mp4">
+          <source src="films/chef-film.mp4" type="video/mp4">
+        </video>
+        <div class="contact-video-overlay-scrim"></div>
+      </div>
+
+      <!-- Frosted Blurred Glassmorphic Overlay Card -->
+      <div class="contact-glass-card">
+        <div class="contact-card-header">
+          <div class="contact-kicker-pill">
+            <span class="section-kicker">INITIATE COLLABORATION</span>
+          </div>
+          <span class="contact-aspect-badge">16:9 / 4K DCI</span>
+        </div>
+
+        <div class="contact-editorial-wrap">
+          <h2 class="contact-editorial-title">Let's create something remarkable.</h2>
+          <p class="contact-editorial-sub">
+            Available for commercial productions, fashion campaigns, culinary &amp; hospitality films, documentary projects, and brand consultation worldwide.
+          </p>
+
+          <div class="contact-actions-row">
+            <button class="primary-editorial-btn" id="openInquireBtn">
+              <span>Book Production Consultation</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </button>
+
+            <button class="ghost-editorial-btn" id="copyEmailBtn">
+              <span id="copyEmailText">Copy Contact Email</span>
+            </button>
+          </div>
+
+          <!-- Direct Social Profiles Row -->
+          <div class="contact-social-row">
+            <a href="https://www.youtube.com/@minhajrasool9922/videos" target="_blank" rel="noopener" class="contact-social-pill" aria-label="YouTube Channel">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon">
+                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
+                <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+              </svg>
+              <span>YouTube</span>
+            </a>
+            <a href="https://www.instagram.com/minhaj_2.0/" target="_blank" rel="noopener" class="contact-social-pill" aria-label="Instagram Profile">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+              </svg>
+              <span>Instagram</span>
+            </a>
+            <a href="https://www.linkedin.com/in/minhaj-rasool-5b403921b/" target="_blank" rel="noopener" class="contact-social-pill" aria-label="LinkedIn Profile">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                <rect x="2" y="9" width="4" height="12"></rect>
+                <circle cx="4" cy="4" r="2"></circle>
+              </svg>
+              <span>LinkedIn</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Minimalist Footer -->
+    <footer class="minimal-footer">
+      <div class="footer-left">
+        <span>&copy; 2026 Minhaj Rasool. All cinematography and photography rights reserved.</span>
+      </div>
+      <div class="footer-social-links">
+        <a href="https://www.youtube.com/@minhajrasool9922/videos" target="_blank" rel="noopener" class="footer-link">YouTube</a>
+        <span class="footer-sep">/</span>
+        <a href="https://www.instagram.com/minhaj_2.0/" target="_blank" rel="noopener" class="footer-link">Instagram</a>
+        <span class="footer-sep">/</span>
+        <a href="https://www.linkedin.com/in/minhaj-rasool-5b403921b/" target="_blank" rel="noopener" class="footer-link">LinkedIn</a>
+      </div>
+      <div class="footer-right">
+        <span>Air University Silver Medalist / Lahore / Available Worldwide</span>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- Interactive Project Inquiry Modal -->
+  <div class="modal-backdrop" id="inquireModal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <span class="modal-tag">INQUIRY</span>
+          <h3 class="modal-title">Book a Shoot with Minhaj Rasool</h3>
+        </div>
+        <button class="modal-close-btn" id="closeModalBtn" aria-label="Close modal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <form class="modal-form" id="inquireForm">
+        <div class="form-group">
+          <label for="clientName">Name or Company</label>
+          <input type="text" id="clientName" required placeholder="e.g. MG Apparel / Studio Agency">
+        </div>
+        <div class="form-group">
+          <label for="clientEmail">Email Address</label>
+          <input type="email" id="clientEmail" required placeholder="name@domain.com">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="projectType">Scope</label>
+            <select id="projectType">
+              <option value="commercial">Commercial Video Production</option>
+              <option value="fashion">Fashion &amp; Product Photography</option>
+              <option value="documentary">Corporate &amp; Documentary</option>
+              <option value="wedding">Wedding Cinematic Film</option>
+              <option value="direction">Creative Direction</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="projectTimeline">Target Timeline</label>
+            <input type="text" id="projectTimeline" placeholder="e.g. Next Month / Q3">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="projectDetails">Details</label>
+          <textarea id="projectDetails" rows="4" placeholder="Briefly describe the vision, deliverables, or location..."></textarea>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn-cancel" id="cancelModalBtn">Cancel</button>
+          <button type="submit" class="btn-submit">
+            <span>Send Inquiry</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Interactive Lightbox for 2K Imagery -->
+  <div class="lightbox-backdrop" id="lightboxModal" aria-hidden="true">
+    <div class="lightbox-container">
+      <button class="lightbox-close-btn" id="lightboxClose" aria-label="Close preview">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+      <div class="lightbox-media-wrap">
+        <img src="" alt="High-Resolution Preview" id="lightboxImage" class="lightbox-img" style="display: none;">
+        <video id="lightboxVideo" class="lightbox-video" controls playsinline style="display: none;"></video>
+      </div>
+      <div class="lightbox-caption" id="lightboxCaption"></div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast-notification" id="toastNotification">
+    <span class="toast-message" id="toastMessage">Email copied to clipboard!</span>
+  </div>
+
+  <script src="script.js?v=18"></script>
+</body>
+</html>
