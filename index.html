@@ -165,6 +165,25 @@ body.dark-mode {
   color: #F7F2EB;
 }
 
+[data-theme="dark"] .verve-project-showcase {
+  background: #1E221A;
+  border-color: rgba(139, 154, 110, 0.2);
+}
+
+[data-theme="dark"] .verve-brand-badge {
+  background: rgba(139, 154, 110, 0.25);
+  color: #F7F2EB;
+}
+
+[data-theme="dark"] .verve-count-pill {
+  background: #141712;
+  border-color: rgba(139, 154, 110, 0.2);
+}
+
+[data-theme="dark"] .verve-reel-card {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
 [data-theme="dark"] .academic-item,
 [data-theme="dark"] .gear-spec-card {
   background: #1E221A;
@@ -320,122 +339,6 @@ select:focus-visible {
   display: inline-block;
   vertical-align: middle;
   transition: transform var(--transition-fast), stroke var(--transition-fast);
-}
-
-/* --------------------------------------------------------------------------
-   1.5. Cinematic Studio Preloader / Starting Screen (Advanced & High Speed)
-   -------------------------------------------------------------------------- */
-.studio-preloader {
-  position: fixed;
-  inset: 0;
-  width: 100vw;
-  height: 100vh;
-  height: 100dvh;
-  background-color: #FFFFFF !important;
-  z-index: 99999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  opacity: 1;
-  visibility: visible;
-  transition: opacity 0.38s cubic-bezier(0.16, 1, 0.3, 1), 
-              transform 0.38s cubic-bezier(0.16, 1, 0.3, 1), 
-              filter 0.38s cubic-bezier(0.16, 1, 0.3, 1),
-              visibility 0.38s;
-  overflow: hidden;
-  user-select: none;
-  -webkit-user-select: none;
-  cursor: pointer;
-  will-change: opacity, transform, filter;
-}
-
-.studio-preloader.loaded {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transform: scale(1.03);
-  filter: blur(8px);
-}
-
-.preloader-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 0;
-  max-width: 90vw;
-  cursor: pointer;
-  background: #FFFFFF;
-}
-
-.preloader-logo-wrap {
-  width: 480px;
-  max-width: 86vw;
-  aspect-ratio: 16 / 9;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 0 10px;
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  background: #FFFFFF;
-  position: relative;
-}
-
-.preloader-video {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  display: block;
-  pointer-events: none;
-  background: #FFFFFF;
-  mix-blend-mode: multiply;
-  filter: contrast(1.08) brightness(1.02);
-}
-
-/* Minimalist Progress Meter */
-.preloader-meta-wrap {
-  width: 220px;
-  max-width: 70vw;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-top: 4px;
-}
-
-.preloader-line-track {
-  width: 100%;
-  height: 2px;
-  background: rgba(33, 37, 29, 0.08);
-  border-radius: var(--radius-pill);
-  overflow: hidden;
-  position: relative;
-}
-
-.preloader-line-bar {
-  width: 0%;
-  height: 100%;
-  background: var(--text-primary);
-  border-radius: var(--radius-pill);
-  transition: width 0.06s linear;
-}
-
-.preloader-label-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-family: var(--font-numbers);
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  color: var(--text-muted);
-}
-
-.preloader-label-right {
-  font-variant-numeric: tabular-nums;
-  color: var(--text-primary);
 }
 
 /* --------------------------------------------------------------------------
@@ -1042,6 +945,178 @@ select:focus-visible {
 }
 
 /* --------------------------------------------------------------------------
+   3.5. BRANDS MARQUEE SECTION (Clients & Collaborators Loop)
+   -------------------------------------------------------------------------- */
+.brands-marquee-section {
+  position: relative;
+  width: 100%;
+  background-color: var(--bg-main);
+  padding: 40px 0 28px;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border-subtle);
+  transition: background-color var(--transition-smooth);
+  box-sizing: border-box;
+  z-index: 5;
+}
+
+.brands-marquee-header {
+  text-align: center;
+  margin-bottom: 24px;
+  padding: 0 24px;
+}
+
+.brands-kicker {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  opacity: 0.85;
+}
+
+.brands-marquee-slider {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  user-select: none;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 80px, black calc(100% - 80px), transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 80px, black calc(100% - 80px), transparent 100%);
+}
+
+.brands-marquee-track {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  -webkit-animation: brandsLoopLeftToRight 28s linear infinite !important;
+  animation: brandsLoopLeftToRight 28s linear infinite !important;
+  will-change: transform;
+  gap: 0;
+}
+
+.brands-marquee-slider:hover .brands-marquee-track {
+  -webkit-animation-play-state: paused;
+  animation-play-state: paused;
+}
+
+@-webkit-keyframes brandsLoopLeftToRight {
+  0% {
+    -webkit-transform: translate3d(-50%, 0, 0);
+    transform: translate3d(-50%, 0, 0);
+  }
+  100% {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes brandsLoopLeftToRight {
+  0% {
+    -webkit-transform: translate3d(-50%, 0, 0);
+    transform: translate3d(-50%, 0, 0);
+  }
+  100% {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.brand-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  padding: 0 36px;
+  flex-shrink: 0;
+  cursor: default;
+}
+
+.brand-logo {
+  display: block;
+  object-fit: contain;
+  transition: transform var(--transition-smooth), filter var(--transition-smooth), opacity var(--transition-smooth);
+  filter: grayscale(100%) opacity(0.55);
+}
+
+.brand-item:hover .brand-logo {
+  filter: grayscale(0%) opacity(1);
+  transform: translateY(-1px) scale(1.05);
+}
+
+/* Specific Optical Heights */
+.brand-logo.img-mg {
+  height: 34px;
+  width: auto;
+}
+.brand-logo.img-raiment {
+  height: 19px;
+  width: auto;
+}
+.brand-logo.img-verve {
+  height: 19px;
+  width: auto;
+}
+.brand-logo.img-lays {
+  height: 38px;
+  width: auto;
+}
+.brand-logo.img-zia {
+  height: 40px;
+  width: auto;
+}
+.brand-logo.img-volka {
+  height: 34px;
+  width: auto;
+}
+
+/* Light / Dark Mode Logo Switching */
+.brand-logo.logo-dark {
+  display: none;
+}
+.brand-logo.logo-light {
+  display: block;
+}
+
+[data-theme="dark"] .brand-logo.logo-light,
+body.dark-mode .brand-logo.logo-light {
+  display: none;
+}
+[data-theme="dark"] .brand-logo.logo-dark,
+body.dark-mode .brand-logo.logo-dark {
+  display: block;
+}
+
+[data-theme="dark"] .brand-logo,
+body.dark-mode .brand-logo {
+  filter: grayscale(100%) opacity(0.6);
+}
+[data-theme="dark"] .brand-item:hover .brand-logo,
+body.dark-mode .brand-item:hover .brand-logo {
+  filter: grayscale(0%) opacity(1);
+}
+
+@media (max-width: 768px) {
+  .brands-marquee-section {
+    padding: 28px 0 20px;
+  }
+  .brands-marquee-slider {
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 28px, black calc(100% - 28px), transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, black 28px, black calc(100% - 28px), transparent 100%);
+  }
+  .brand-item {
+    padding: 0 22px;
+    height: 40px;
+  }
+  .brand-logo.img-mg { height: 28px; }
+  .brand-logo.img-raiment { height: 16px; }
+  .brand-logo.img-verve { height: 16px; }
+  .brand-logo.img-lays { height: 32px; }
+  .brand-logo.img-zia { height: 34px; }
+  .brand-logo.img-volka { height: 28px; }
+}
+
+/* --------------------------------------------------------------------------
    4. Main Content Page Container & Section Layout
    -------------------------------------------------------------------------- */
 .page-container {
@@ -1516,6 +1591,480 @@ select:focus-visible {
   border-radius: var(--radius-pill);
   display: flex;
   align-items: center;
+}
+
+/* --------------------------------------------------------------------------
+   6.1. Verve Unified Multi-Reel Project Showcase (Single Row 3-Reel Layout)
+   -------------------------------------------------------------------------- */
+/* Edge-to-Edge Expansion for Films Section (eliminates excessive edge margins on screens) */
+.edge-to-edge-section {
+  width: 100%;
+  position: relative;
+}
+
+@media (min-width: 1240px) {
+  .edge-to-edge-section {
+    width: calc(100% + clamp(32px, 8vw, 180px));
+    margin-left: calc(-1 * clamp(16px, 4vw, 90px));
+    margin-right: calc(-1 * clamp(16px, 4vw, 90px));
+  }
+}
+
+.verve-project-showcase {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--bg-surface);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-card);
+  padding: 24px 20px 28px;
+  display: flex !important;
+  flex-direction: column;
+  gap: 20px;
+  transition: box-shadow var(--transition-smooth), transform var(--transition-smooth);
+}
+
+.verve-project-showcase:hover {
+  box-shadow: var(--shadow-card-hover);
+}
+
+.verve-project-header {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 16px;
+}
+
+.verve-meta-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.verve-brand-badge-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.verve-brand-badge {
+  font-family: var(--font-display);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--text-primary);
+  background: var(--bg-pill);
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  text-transform: uppercase;
+}
+
+.verve-series-label {
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.verve-count-pill {
+  font-family: var(--font-numbers);
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: var(--bg-main);
+  border: 1px solid var(--border-subtle);
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+}
+
+.verve-title-desc-wrap {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 20px;
+  align-items: end;
+}
+
+.verve-main-title {
+  font-size: clamp(1.85rem, 2.8vw, 2.4rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--text-primary);
+  line-height: 1.15;
+  margin-bottom: 4px;
+}
+
+.verve-main-kicker {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.verve-main-desc {
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+}
+
+/* 3 Reels in a Single Row */
+.verve-reels-row {
+  position: relative;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  width: 100%;
+}
+
+.verve-reel-card {
+  position: relative;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  background: #0C0F0A;
+  border: 1px solid var(--border-subtle);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
+  aspect-ratio: 9 / 16;
+  min-height: 520px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.4s ease,
+              border-color 0.3s ease;
+}
+
+.verve-reel-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.18);
+  border-color: rgba(139, 154, 110, 0.45);
+}
+
+.verve-reel-video-wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.verve-reel-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform: scale(1);
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.verve-reel-card:hover .verve-reel-video {
+  transform: scale(1.04);
+}
+
+/* Subtle Top Pill over video */
+.verve-reel-top-bar {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  right: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.verve-top-pill {
+  font-family: var(--font-numbers);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #FFFFFF;
+  background: rgba(14, 18, 12, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 3px 9px;
+  border-radius: var(--radius-pill);
+}
+
+.verve-top-brand {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.9);
+  background: rgba(14, 18, 12, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 3px 9px;
+  border-radius: var(--radius-pill);
+  text-transform: uppercase;
+}
+
+/* Play bubble in center */
+.verve-play-bubble-wrap {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 11;
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.12);
+  transition: background 0.25s ease, opacity 0.3s ease;
+}
+
+.verve-reel-card.is-playing .verve-play-bubble-wrap {
+  background: transparent;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.verve-reel-card.is-playing:hover .verve-play-bubble-wrap {
+  opacity: 0.85;
+  pointer-events: auto;
+}
+
+/* Initial preview bar before hover */
+.verve-reel-initial-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 24px 18px 18px;
+  background: linear-gradient(to top, rgba(10, 13, 9, 0.88) 0%, rgba(10, 13, 9, 0.4) 60%, transparent 100%);
+  z-index: 9;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  pointer-events: none;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.verve-reel-card:hover .verve-reel-initial-bar,
+.verve-reel-card:focus-within .verve-reel-initial-bar {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.verve-initial-idx {
+  font-family: var(--font-numbers);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--accent-blue);
+  text-transform: uppercase;
+}
+
+.verve-initial-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #FFFFFF;
+}
+
+.verve-initial-kicker {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+/* The Hover Detail Panel - coming from bottom, blurred bg, text appearing on top */
+.verve-reel-hover-panel {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  padding: 28px 18px 18px;
+  z-index: 15;
+  background: transparent;
+  
+  /* Positioned at bottom, animated on hover */
+  transform: translateY(calc(100% + 60px));
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.35s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: #FFFFFF;
+}
+
+/* Feathered smooth blur background - no hard edge */
+.verve-reel-hover-panel::before {
+  content: "";
+  position: absolute;
+  inset: -60px 0 0 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(
+    to top,
+    rgba(14, 18, 12, 0.98) 0%,
+    rgba(14, 18, 12, 0.94) 40%,
+    rgba(14, 18, 12, 0.72) 65%,
+    rgba(14, 18, 12, 0.25) 85%,
+    transparent 100%
+  );
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.35) 25px, black 65px, black 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.35) 25px, black 65px, black 100%);
+}
+
+.verve-reel-card:hover .verve-reel-hover-panel,
+.verve-reel-card:focus-within .verve-reel-hover-panel {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.verve-panel-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.verve-panel-pill {
+  font-family: var(--font-numbers);
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--accent-blue);
+  background: rgba(139, 154, 110, 0.22);
+  padding: 2px 7px;
+  border-radius: var(--radius-pill);
+}
+
+.verve-panel-client {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.verve-panel-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #FFFFFF;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.verve-panel-kicker {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0;
+}
+
+.verve-panel-desc {
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.75);
+  margin: 0;
+}
+
+.verve-panel-specs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.verve-spec-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-pill);
+  padding: 3px 9px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: #F7F2EB;
+}
+
+.verve-spec-tag .svg-icon {
+  width: 12px;
+  height: 12px;
+  color: var(--accent-blue);
+}
+
+.verve-hud-row {
+  margin-top: 4px;
+}
+
+.verve-hud-row .showcase-progress-track {
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  margin-bottom: 6px;
+  overflow: hidden;
+}
+
+.verve-hud-row .showcase-progress-bar {
+  width: 0%;
+  height: 100%;
+  background: var(--accent-blue);
+  transition: width 0.1s linear;
+}
+
+.verve-panel-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.verve-panel-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border-radius: var(--radius-pill);
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  flex: 1;
+}
+
+.verve-btn-fullscreen {
+  background: #FFFFFF;
+  color: #141712;
+  border: none;
+}
+
+.verve-btn-fullscreen:hover {
+  background: #EAE2D6;
+  transform: scale(1.02);
+}
+
+.verve-btn-sound {
+  background: rgba(255, 255, 255, 0.12);
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(8px);
+}
+
+.verve-btn-sound:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.verve-btn-sound.sound-active {
+  background: var(--accent-blue);
+  color: #FFFFFF;
+  border-color: var(--accent-blue);
 }
 
 /* --------------------------------------------------------------------------
@@ -2514,6 +3063,21 @@ body.dark-mode .metric-box-4 .metric-desc {
   .gear-software-grid {
     grid-template-columns: 1fr;
   }
+
+  .verve-project-showcase {
+    padding: 20px 16px 24px;
+    gap: 18px;
+  }
+  .verve-title-desc-wrap {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .verve-reels-row {
+    gap: 14px;
+  }
+  .verve-reel-card {
+    min-height: 480px;
+  }
 }
 
 /* ==========================================================================
@@ -2795,6 +3359,36 @@ body.dark-mode .metric-box-4 .metric-desc {
     border-radius: var(--radius-lg);
   }
 
+  .verve-project-showcase {
+    padding: 16px 12px 20px;
+    gap: 16px;
+    border-radius: var(--radius-lg);
+  }
+
+  .verve-main-title {
+    font-size: 1.8rem;
+  }
+
+  .verve-reels-row {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .verve-reel-card {
+    min-height: 460px;
+  }
+
+  .verve-reel-hover-panel {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+    padding: 24px 16px 16px;
+  }
+
+  .verve-reel-initial-bar {
+    display: none;
+  }
+
   .showcase-video-player {
     border-radius: var(--radius-md);
     height: 56vw;
@@ -2928,16 +3522,6 @@ body.dark-mode .metric-box-4 .metric-desc {
     max-width: 100%;
   }
 
-  /* --- Preloader --- */
-  .preloader-logo-wrap {
-    width: 70vw;
-    max-width: 320px;
-  }
-
-  .preloader-meta-wrap {
-    width: 70vw;
-    max-width: 320px;
-  }
 }
 
 /* ==========================================================================
@@ -2994,33 +3578,6 @@ body.dark-mode .metric-box-4 .metric-desc {
 </style>
 </head>
 <body>
-
-  <!-- Cinematic Studio Preloader / Starting Screen -->
-  <div class="studio-preloader" id="studioPreloader" title="Click anywhere to enter">
-    <div class="preloader-content">
-      <div class="preloader-logo-wrap">
-        <video 
-          id="preloaderVideo" 
-          class="preloader-video" 
-          autoplay 
-          muted 
-          playsinline 
-          preload="auto">
-          <source src="https://media.githubusercontent.com/media/ammarayyaz/Minhaj_Portfolio/main/LOG_MR_reverse.mp4" type="video/mp4">
-          <source src="https://media.githubusercontent.com/media/ammarayyaz/Minhaj_Portfolio/main/LOG_MR_reverse.webm" type="video/webm">
-        </video>
-      </div>
-      <div class="preloader-meta-wrap">
-        <div class="preloader-line-track">
-          <div class="preloader-line-bar" id="preloaderLineBar"></div>
-        </div>
-        <div class="preloader-label-row">
-          <span class="preloader-label-left">PORTFOLIO &mdash; 2026</span>
-          <span class="preloader-label-right" id="preloaderCounter">0%</span>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <!-- Fixed Hamburger Menu Toggle Button (always on top, never inside navbar) -->
   <button class="global-hamburger-btn" id="hamburgerBtn" aria-label="Toggle navigation menu" title="Menu" aria-expanded="false">
@@ -3311,7 +3868,118 @@ body.dark-mode .metric-box-4 .metric-desc {
 
 
   <!-- Rest of Content Sections inside Page Container -->
-  <main class="page-container">
+    <!-- Brands Moving Infinite Loop Marquee (Selected Clients & Collaborators) -->
+  <section class="brands-marquee-section" id="brands" aria-label="Brands worked with">
+    <div class="brands-marquee-header">
+      <span class="brands-kicker">BRANDS WORKED WITH</span>
+    </div>
+
+    <div class="brands-marquee-slider" aria-hidden="true">
+      <div class="brands-marquee-track">
+        <!-- Sequence 1 -->
+        <div class="brand-item" title="MG Apparel Ltd">
+          <img src="brands/mg-apparel.png" alt="MG Apparel Ltd" class="brand-logo logo-light img-mg" loading="lazy">
+          <img src="brands/mg-apparel-white.png" alt="MG Apparel Ltd" class="brand-logo logo-dark img-mg" loading="lazy">
+        </div>
+        <div class="brand-item" title="Raiment61">
+          <img src="brands/raiment61.png" alt="Raiment61" class="brand-logo logo-light img-raiment" loading="lazy">
+          <img src="brands/raiment61-white.png" alt="Raiment61" class="brand-logo logo-dark img-raiment" loading="lazy">
+        </div>
+        <div class="brand-item" title="Verve">
+          <img src="brands/verve.png" alt="Verve" class="brand-logo logo-light img-verve" loading="lazy">
+          <img src="brands/verve-white.png" alt="Verve" class="brand-logo logo-dark img-verve" loading="lazy">
+        </div>
+        <div class="brand-item" title="Lay's">
+          <img src="brands/lays.png" alt="Lay's" class="brand-logo img-lays" loading="lazy">
+        </div>
+        <div class="brand-item" title="Zia Foods">
+          <img src="brands/zia-foods.png" alt="Zia Foods" class="brand-logo logo-light img-zia" loading="lazy">
+          <img src="brands/zia-foods-dark.png" alt="Zia Foods" class="brand-logo logo-dark img-zia" loading="lazy">
+        </div>
+        <div class="brand-item" title="Volka Foods">
+          <img src="brands/volka-foods.png" alt="Volka Foods" class="brand-logo logo-light img-volka" loading="lazy">
+          <img src="brands/volka-foods-white.png" alt="Volka Foods" class="brand-logo logo-dark img-volka" loading="lazy">
+        </div>
+
+        <!-- Sequence 2 -->
+        <div class="brand-item" title="MG Apparel Ltd">
+          <img src="brands/mg-apparel.png" alt="MG Apparel Ltd" class="brand-logo logo-light img-mg" loading="lazy">
+          <img src="brands/mg-apparel-white.png" alt="MG Apparel Ltd" class="brand-logo logo-dark img-mg" loading="lazy">
+        </div>
+        <div class="brand-item" title="Raiment61">
+          <img src="brands/raiment61.png" alt="Raiment61" class="brand-logo logo-light img-raiment" loading="lazy">
+          <img src="brands/raiment61-white.png" alt="Raiment61" class="brand-logo logo-dark img-raiment" loading="lazy">
+        </div>
+        <div class="brand-item" title="Verve">
+          <img src="brands/verve.png" alt="Verve" class="brand-logo logo-light img-verve" loading="lazy">
+          <img src="brands/verve-white.png" alt="Verve" class="brand-logo logo-dark img-verve" loading="lazy">
+        </div>
+        <div class="brand-item" title="Lay's">
+          <img src="brands/lays.png" alt="Lay's" class="brand-logo img-lays" loading="lazy">
+        </div>
+        <div class="brand-item" title="Zia Foods">
+          <img src="brands/zia-foods.png" alt="Zia Foods" class="brand-logo logo-light img-zia" loading="lazy">
+          <img src="brands/zia-foods-dark.png" alt="Zia Foods" class="brand-logo logo-dark img-zia" loading="lazy">
+        </div>
+        <div class="brand-item" title="Volka Foods">
+          <img src="brands/volka-foods.png" alt="Volka Foods" class="brand-logo logo-light img-volka" loading="lazy">
+          <img src="brands/volka-foods-white.png" alt="Volka Foods" class="brand-logo logo-dark img-volka" loading="lazy">
+        </div>
+
+        <!-- Sequence 3 -->
+        <div class="brand-item" title="MG Apparel Ltd">
+          <img src="brands/mg-apparel.png" alt="MG Apparel Ltd" class="brand-logo logo-light img-mg" loading="lazy">
+          <img src="brands/mg-apparel-white.png" alt="MG Apparel Ltd" class="brand-logo logo-dark img-mg" loading="lazy">
+        </div>
+        <div class="brand-item" title="Raiment61">
+          <img src="brands/raiment61.png" alt="Raiment61" class="brand-logo logo-light img-raiment" loading="lazy">
+          <img src="brands/raiment61-white.png" alt="Raiment61" class="brand-logo logo-dark img-raiment" loading="lazy">
+        </div>
+        <div class="brand-item" title="Verve">
+          <img src="brands/verve.png" alt="Verve" class="brand-logo logo-light img-verve" loading="lazy">
+          <img src="brands/verve-white.png" alt="Verve" class="brand-logo logo-dark img-verve" loading="lazy">
+        </div>
+        <div class="brand-item" title="Lay's">
+          <img src="brands/lays.png" alt="Lay's" class="brand-logo img-lays" loading="lazy">
+        </div>
+        <div class="brand-item" title="Zia Foods">
+          <img src="brands/zia-foods.png" alt="Zia Foods" class="brand-logo logo-light img-zia" loading="lazy">
+          <img src="brands/zia-foods-dark.png" alt="Zia Foods" class="brand-logo logo-dark img-zia" loading="lazy">
+        </div>
+        <div class="brand-item" title="Volka Foods">
+          <img src="brands/volka-foods.png" alt="Volka Foods" class="brand-logo logo-light img-volka" loading="lazy">
+          <img src="brands/volka-foods-white.png" alt="Volka Foods" class="brand-logo logo-dark img-volka" loading="lazy">
+        </div>
+
+        <!-- Sequence 4 -->
+        <div class="brand-item" title="MG Apparel Ltd">
+          <img src="brands/mg-apparel.png" alt="MG Apparel Ltd" class="brand-logo logo-light img-mg" loading="lazy">
+          <img src="brands/mg-apparel-white.png" alt="MG Apparel Ltd" class="brand-logo logo-dark img-mg" loading="lazy">
+        </div>
+        <div class="brand-item" title="Raiment61">
+          <img src="brands/raiment61.png" alt="Raiment61" class="brand-logo logo-light img-raiment" loading="lazy">
+          <img src="brands/raiment61-white.png" alt="Raiment61" class="brand-logo logo-dark img-raiment" loading="lazy">
+        </div>
+        <div class="brand-item" title="Verve">
+          <img src="brands/verve.png" alt="Verve" class="brand-logo logo-light img-verve" loading="lazy">
+          <img src="brands/verve-white.png" alt="Verve" class="brand-logo logo-dark img-verve" loading="lazy">
+        </div>
+        <div class="brand-item" title="Lay's">
+          <img src="brands/lays.png" alt="Lay's" class="brand-logo img-lays" loading="lazy">
+        </div>
+        <div class="brand-item" title="Zia Foods">
+          <img src="brands/zia-foods.png" alt="Zia Foods" class="brand-logo logo-light img-zia" loading="lazy">
+          <img src="brands/zia-foods-dark.png" alt="Zia Foods" class="brand-logo logo-dark img-zia" loading="lazy">
+        </div>
+        <div class="brand-item" title="Volka Foods">
+          <img src="brands/volka-foods.png" alt="Volka Foods" class="brand-logo logo-light img-volka" loading="lazy">
+          <img src="brands/volka-foods-white.png" alt="Volka Foods" class="brand-logo logo-dark img-volka" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+<main class="page-container">
 
     <!-- Kinetic Scroll Manifesto Section (Word-by-Word Scroll Reveal & Spacing) -->
     <section class="scroll-manifesto-section" id="manifesto">
@@ -3337,366 +4005,416 @@ body.dark-mode .metric-box-4 .metric-desc {
         <!-- Interactive Category Filter Navigation Bar -->
         <div class="category-filter-nav" id="categoryFilterNav">
           <button class="category-tab-btn active" data-filter="all">All Works</button>
-          <button class="category-tab-btn" data-filter="corporate">Corporate Work</button>
-          <button class="category-tab-btn" data-filter="personal">Personal Work</button>
-          <button class="category-tab-btn" data-filter="mg-apparel">MG Apparel Work</button>
+          <button class="category-tab-btn" data-filter="verve">Verve</button>
+          <button class="category-tab-btn" data-filter="commercial">Commercial</button>
+          <button class="category-tab-btn" data-filter="fashion">Fashion</button>
+          <button class="category-tab-btn" data-filter="corporate">Corporate</button>
         </div>
       </div>
 
-      <!-- Scroll-Driven In-Depth Video Breakdown Stack (1 by 1 as user scrolls down) -->
+      <!-- Single Unified Project: Verve Motion Trilogy (3 Reels in a Single Row) -->
       <div class="vertical-showcase-stack" id="verticalShowcaseStack">
 
-        <!-- Showcase Item 1: Solo Female Campaign (Info Left, Video Right) -->
-        <article class="vertical-showcase-row layout-right-video" 
-                 id="showcase-item-1"
-                 data-category="mg-apparel personal corporate" 
-                 data-video-src="https://media.githubusercontent.com/media/ammarayyaz/Minhaj_Portfolio/main/films/female-campaign.mp4" 
-                 data-title="Elysian Silhouette — High-Fashion Campaign"
-                 data-client="MG Apparel / Verve Collection">
+        <article class="vertical-showcase-row project-showcase-block verve-project-showcase" 
+                 id="showcase-item-verve"
+                 data-category="verve commercial fashion corporate personal" 
+                 data-client="Verve">
           
-          <!-- Ambient Synchronized Video Backdrop (Full Section / 16:9 Ambient Cover) -->
+          <!-- Ambient Synchronized Video Backdrop (Full Section Ambient Cover) -->
           <div class="showcase-ambient-backdrop">
-            <video class="showcase-ambient-video" src="https://media.githubusercontent.com/media/ammarayyaz/Minhaj_Portfolio/main/films/female-campaign.mp4" muted loop playsinline preload="metadata"></video>
+            <video class="showcase-ambient-video" 
+                   id="verveAmbientVideo" 
+                   src="https://media.githubusercontent.com/media/ammarayyaz/Minhaj_Portfolio/main/films/combo-campaign.mp4" 
+                   muted loop playsinline preload="metadata">
+            </video>
             <div class="showcase-ambient-scrim"></div>
           </div>
 
-          <div class="showcase-info-col">
-            <div class="showcase-header-tag">
-              <span class="showcase-index-pill">01 / 03</span>
-              <span class="showcase-client-tag">MG APPAREL &mdash; VERVE COLLECTION</span>
-            </div>
-
-            <h3 class="showcase-video-title">Elysian Silhouette</h3>
-            <p class="showcase-video-kicker">High-Fashion Editorial Motion</p>
-
-            <p class="showcase-video-desc">
-              An intimate high-fashion study in movement and silhouette, capturing natural drape, architectural lighting transitions, and fluid model expression for the Verve collection.
-            </p>
-
-            <div class="showcase-specs-list">
-              <span class="spec-pill">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
-                9:16 Vertical Master
-              </span>
-              <span class="spec-pill">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
-                Sony A7R II / Sigma 24–70mm f/2.8
-              </span>
-              <span class="spec-pill">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                Studio Continuous Lighting
-              </span>
-              <span class="spec-pill">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon"><path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"></path><line x1="16" y1="8" x2="2" y2="22"></line><line x1="17.5" y1="15" x2="9" y2="15"></line></svg>
-                Editorial Cinematography
-              </span>
-            </div>
-
-            <div class="showcase-cta-row">
-              <button class="showcase-cta-btn showcase-btn-primary edge-cinema-view-btn" type="button" aria-label="Open Full Cinema Mode">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon">
-                  <polyline points="15 3 21 3 21 9"></polyline>
-                  <polyline points="9 21 3 21 3 15"></polyline>
-                  <line x1="21" y1="3" x2="14" y2="10"></line>
-                  <line x1="3" y1="21" x2="10" y2="14"></line>
-                </svg>
-                <span>Fullscreen View</span>
-              </button>
-
-              <button class="showcase-cta-btn showcase-btn-sound" type="button" aria-label="Toggle Video Sound">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon sound-off-icon">
-                  <line x1="1" y1="1" x2="23" y2="23"></line>
-                  <path d="M9 9v3a3 3 0 0 0 5.12 2.12M15 9.34V4a3 3 0 0 0-5.94-.6"></path>
-                  <path d="M17 16.95A7 7 0 0 1 5 12v-2m14 0v2a7 7 0 0 1-.11 1.23"></path>
-                </svg>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon sound-on-icon" style="display: none;">
-                  <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-                  <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-                </svg>
-                <span class="sound-label">Audio Off</span>
-              </button>
-            </div>
-          </div>
-
-          <div class="showcase-video-col">
-            <div class="showcase-clean-video-frame">
-              <video 
-                class="showcase-media-video edge-media-video" 
-                src="https://media.githubusercontent.com/media/ammarayyaz/Minhaj_Portfolio/main/films/female-campaign.mp4" 
-                muted 
-                loop 
-                playsinline 
-                preload="metadata">
-              </video>
-
-              <div class="showcase-play-overlay">
-                <div class="showcase-play-bubble">
-                  <svg viewBox="0 0 24 24" fill="currentColor" class="showcase-icon-play">
-                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
-                  </svg>
-                  <svg viewBox="0 0 24 24" fill="currentColor" class="showcase-icon-pause" style="display: none;">
-                    <rect x="6" y="4" width="4" height="16"></rect>
-                    <rect x="14" y="4" width="4" height="16"></rect>
-                  </svg>
-                </div>
+          <!-- Verve Project Header -->
+          <div class="verve-project-header">
+            <div class="verve-meta-top">
+              <div class="verve-brand-badge-group">
+                <span class="showcase-index-pill">01 / 01</span>
+                <span class="verve-brand-badge">VERVE</span>
+                <span class="verve-series-label">Commercial &amp; Editorial Trilogy</span>
               </div>
+              <span class="verve-count-pill">3 Films &bull; 9:16 Vertical Masters</span>
+            </div>
 
-              <div class="showcase-hud-bottom">
-                <div class="showcase-progress-track" title="Click to scrub">
-                  <div class="showcase-progress-bar"></div>
-                </div>
-                <div class="showcase-hud-bar">
-                  <span class="showcase-time-display">00:00</span>
-                  <button class="showcase-hud-sound-toggle" type="button" title="Sound Toggle" aria-label="Toggle sound">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="hud-sound-icon-muted">
-                      <line x1="1" y1="1" x2="23" y2="23"></line>
-                      <path d="M9 9v3a3 3 0 0 0 5.12 2.12M15 9.34V4a3 3 0 0 0-5.94-.6"></path>
-                      <path d="M17 16.95A7 7 0 0 1 5 12v-2m14 0v2a7 7 0 0 1-.11 1.23"></path>
-                    </svg>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="hud-sound-icon-active" style="display: none;">
-                      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-                      <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-                    </svg>
-                  </button>
-                </div>
+            <div class="verve-title-desc-wrap">
+              <div class="verve-title-group">
+                <h3 class="verve-main-title">Verve Motion Trilogy</h3>
+                <p class="verve-main-kicker">High-Fashion Commercial &amp; Editorial Campaign</p>
               </div>
-            </div>
-          </div>
-        </article>
-
-        <!-- Showcase Item 2: Combo Campaign Shoot (Video Left, Info Right) -->
-        <article class="vertical-showcase-row layout-left-video" 
-                 id="showcase-item-2"
-                 data-category="corporate mg-apparel" 
-                 data-video-src="https://media.githubusercontent.com/media/ammarayyaz/Minhaj_Portfolio/main/films/combo-campaign.mp4" 
-                 data-title="Convergence — Dual Motion Campaign"
-                 data-client="MG Apparel / Verve Collection">
-          
-          <!-- Ambient Synchronized Video Backdrop (Full Section / 16:9 Ambient Cover) -->
-          <div class="showcase-ambient-backdrop">
-            <video class="showcase-ambient-video" src="https://media.githubusercontent.com/media/ammarayyaz/Minhaj_Portfolio/main/films/combo-campaign.mp4" muted loop playsinline preload="metadata"></video>
-            <div class="showcase-ambient-scrim"></div>
-          </div>
-
-          <div class="showcase-info-col">
-            <div class="showcase-header-tag">
-              <span class="showcase-index-pill">02 / 03</span>
-              <span class="showcase-client-tag">MG APPAREL &mdash; VERVE COLLECTION</span>
-            </div>
-
-            <h3 class="showcase-video-title">Convergence</h3>
-            <p class="showcase-video-kicker">Flagship Dual-Talent Campaign</p>
-
-            <p class="showcase-video-desc">
-              High-energy commercial staging featuring synchronized talent movement, motorized gimbal tracking, and dynamic contrast grading tailored for multi-platform seasonal release.
-            </p>
-
-            <div class="showcase-specs-list">
-              <span class="spec-pill">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
-                9:16 Vertical Master
-              </span>
-              <span class="spec-pill">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
-                DJI RS4 Motorized Gimbal
-              </span>
-              <span class="spec-pill">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                60fps High Frame Rate
-              </span>
-              <span class="spec-pill">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon"><path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"></path><line x1="16" y1="8" x2="2" y2="22"></line><line x1="17.5" y1="15" x2="9" y2="15"></line></svg>
-                Commercial Staging &amp; Direction
-              </span>
-            </div>
-
-            <div class="showcase-cta-row">
-              <button class="showcase-cta-btn showcase-btn-primary edge-cinema-view-btn" type="button" aria-label="Open Full Cinema Mode">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon">
-                  <polyline points="15 3 21 3 21 9"></polyline>
-                  <polyline points="9 21 3 21 3 15"></polyline>
-                  <line x1="21" y1="3" x2="14" y2="10"></line>
-                  <line x1="3" y1="21" x2="10" y2="14"></line>
-                </svg>
-                <span>Fullscreen View</span>
-              </button>
-
-              <button class="showcase-cta-btn showcase-btn-sound" type="button" aria-label="Toggle Video Sound">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon sound-off-icon">
-                  <line x1="1" y1="1" x2="23" y2="23"></line>
-                  <path d="M9 9v3a3 3 0 0 0 5.12 2.12M15 9.34V4a3 3 0 0 0-5.94-.6"></path>
-                  <path d="M17 16.95A7 7 0 0 1 5 12v-2m14 0v2a7 7 0 0 1-.11 1.23"></path>
-                </svg>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon sound-on-icon" style="display: none;">
-                  <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-                  <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-                </svg>
-                <span class="sound-label">Audio Off</span>
-              </button>
+              <p class="verve-main-desc">
+                A unified vertical campaign series directed and captured for Verve. Engineered as three distinct cinematic masters exploring high-fashion silhouette study, synchronized dual-talent choreography, and high-retention commercial montage.
+              </p>
             </div>
           </div>
 
-          <div class="showcase-video-col">
-            <div class="showcase-clean-video-frame">
-              <video 
-                class="showcase-media-video edge-media-video" 
-                src="https://media.githubusercontent.com/media/ammarayyaz/Minhaj_Portfolio/main/films/combo-campaign.mp4" 
-                muted 
-                loop 
-                playsinline 
-                preload="metadata">
-              </video>
+          <!-- 3 Reels in a Single Row -->
+          <div class="verve-reels-row" id="verveReelsRow">
+            
+            <!-- Reel 01: Elysian Silhouette -->
+            <div class="verve-reel-card" 
+                 id="verve-reel-1"
+                 data-video-src="https://media.githubusercontent.com/media/ammarayyaz/Minhaj_Portfolio/main/films/female-campaign.mp4"
+                 data-title="Elysian Silhouette &bull; Verve High-Fashion Campaign">
+              <div class="verve-reel-video-wrap">
+                <video 
+                  class="verve-reel-video showcase-media-video" 
+                  src="https://media.githubusercontent.com/media/ammarayyaz/Minhaj_Portfolio/main/films/female-campaign.mp4" 
+                  muted loop playsinline preload="metadata">
+                </video>
 
-              <div class="showcase-play-overlay">
-                <div class="showcase-play-bubble">
-                  <svg viewBox="0 0 24 24" fill="currentColor" class="showcase-icon-play">
-                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
-                  </svg>
-                  <svg viewBox="0 0 24 24" fill="currentColor" class="showcase-icon-pause" style="display: none;">
-                    <rect x="6" y="4" width="4" height="16"></rect>
-                    <rect x="14" y="4" width="4" height="16"></rect>
-                  </svg>
+                <!-- Top Pill Badge -->
+                <div class="verve-reel-top-bar">
+                  <span class="verve-top-pill">REEL 01</span>
+                  <span class="verve-top-brand">VERVE</span>
                 </div>
-              </div>
 
-              <div class="showcase-hud-bottom">
-                <div class="showcase-progress-track" title="Click to scrub">
-                  <div class="showcase-progress-bar"></div>
+                <!-- Center Play Bubble -->
+                <div class="verve-play-bubble-wrap">
+                  <div class="showcase-play-bubble">
+                    <svg viewBox="0 0 24 24" fill="currentColor" class="showcase-icon-play">
+                      <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                    </svg>
+                    <svg viewBox="0 0 24 24" fill="currentColor" class="showcase-icon-pause" style="display: none;">
+                      <rect x="6" y="4" width="4" height="16"></rect>
+                      <rect x="14" y="4" width="4" height="16"></rect>
+                    </svg>
+                  </div>
                 </div>
-                <div class="showcase-hud-bar">
-                  <span class="showcase-time-display">00:00</span>
-                  <button class="showcase-hud-sound-toggle" type="button" title="Sound Toggle" aria-label="Toggle sound">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="hud-sound-icon-muted">
-                      <line x1="1" y1="1" x2="23" y2="23"></line>
-                      <path d="M9 9v3a3 3 0 0 0 5.12 2.12M15 9.34V4a3 3 0 0 0-5.94-.6"></path>
-                      <path d="M17 16.95A7 7 0 0 1 5 12v-2m14 0v2a7 7 0 0 1-.11 1.23"></path>
-                    </svg>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="hud-sound-icon-active" style="display: none;">
-                      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-                      <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-                    </svg>
-                  </button>
+
+                <!-- Initial Unhovered Preview Bar -->
+                <div class="verve-reel-initial-bar">
+                  <span class="verve-initial-idx">01 &bull; VERVE</span>
+                  <span class="verve-initial-title">Elysian Silhouette</span>
+                  <span class="verve-initial-kicker">High-Fashion Editorial Motion</span>
+                </div>
+
+                <!-- Hover Detail Drawer (Slides from bottom with blur background) -->
+                <div class="verve-reel-hover-panel">
+                  <div class="verve-panel-header">
+                    <span class="verve-panel-pill">01 / 03</span>
+                    <span class="verve-panel-client">VERVE COLLECTION</span>
+                  </div>
+
+                  <h4 class="verve-panel-title">Elysian Silhouette</h4>
+                  <p class="verve-panel-kicker">High-Fashion Editorial Motion</p>
+
+                  <p class="verve-panel-desc">
+                    An intimate high-fashion study in movement and silhouette, capturing natural drape, architectural lighting transitions, and fluid model expression for Verve.
+                  </p>
+
+                  <div class="verve-panel-specs">
+                    <span class="verve-spec-tag">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+                      9:16 Vertical
+                    </span>
+                    <span class="verve-spec-tag">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                      Sony A7R II
+                    </span>
+                    <span class="verve-spec-tag">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                      Continuous Light
+                    </span>
+                    <span class="verve-spec-tag">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon"><path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"></path><line x1="16" y1="8" x2="2" y2="22"></line><line x1="17.5" y1="15" x2="9" y2="15"></line></svg>
+                      Editorial Motion
+                    </span>
+                  </div>
+
+                  <!-- Video Scrub Track inside Drawer -->
+                  <div class="verve-hud-row">
+                    <div class="showcase-progress-track" title="Click to scrub">
+                      <div class="showcase-progress-bar"></div>
+                    </div>
+                    <div class="showcase-hud-bar">
+                      <span class="showcase-time-display">00:00</span>
+                      <button class="showcase-hud-sound-toggle" type="button" title="Toggle Sound" aria-label="Toggle sound">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="hud-sound-icon-muted">
+                          <line x1="1" y1="1" x2="23" y2="23"></line>
+                          <path d="M9 9v3a3 3 0 0 0 5.12 2.12M15 9.34V4a3 3 0 0 0-5.94-.6"></path>
+                          <path d="M17 16.95A7 7 0 0 1 5 12v-2m14 0v2a7 7 0 0 1-.11 1.23"></path>
+                        </svg>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="hud-sound-icon-active" style="display: none;">
+                          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                          <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Actions -->
+                  <div class="verve-panel-actions">
+                    <button class="verve-panel-btn verve-btn-fullscreen edge-cinema-view-btn" type="button" aria-label="Open Full Cinema Mode">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon">
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <polyline points="9 21 3 21 3 15"></polyline>
+                        <line x1="21" y1="3" x2="14" y2="10"></line>
+                        <line x1="3" y1="21" x2="10" y2="14"></line>
+                      </svg>
+                      <span>Fullscreen View</span>
+                    </button>
+                    <button class="verve-panel-btn verve-btn-sound showcase-btn-sound" type="button" aria-label="Toggle Video Sound">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon sound-off-icon">
+                        <line x1="1" y1="1" x2="23" y2="23"></line>
+                        <path d="M9 9v3a3 3 0 0 0 5.12 2.12M15 9.34V4a3 3 0 0 0-5.94-.6"></path>
+                        <path d="M17 16.95A7 7 0 0 1 5 12v-2m14 0v2a7 7 0 0 1-.11 1.23"></path>
+                      </svg>
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon sound-on-icon" style="display: none;">
+                        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                        <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                      </svg>
+                      <span class="sound-label">Audio Off</span>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </article>
 
-        <!-- Showcase Item 3: Commercial Web Reel (Info Left, Video Right) -->
-        <article class="vertical-showcase-row layout-right-video" 
-                 id="showcase-item-3"
-                 data-category="personal mg-apparel corporate" 
-                 data-video-src="https://media.githubusercontent.com/media/ammarayyaz/Minhaj_Portfolio/main/films/web-reel.mp4" 
-                 data-title="Kinetic Rhythm — Commercial Montage"
-                 data-client="MG Apparel / Digital Release">
-          
-          <!-- Ambient Synchronized Video Backdrop (Full Section / 16:9 Ambient Cover) -->
-          <div class="showcase-ambient-backdrop">
-            <video class="showcase-ambient-video" src="https://media.githubusercontent.com/media/ammarayyaz/Minhaj_Portfolio/main/films/web-reel.mp4" muted loop playsinline preload="metadata"></video>
-            <div class="showcase-ambient-scrim"></div>
-          </div>
+            <!-- Reel 02: Convergence -->
+            <div class="verve-reel-card" 
+                 id="verve-reel-2"
+                 data-video-src="https://media.githubusercontent.com/media/ammarayyaz/Minhaj_Portfolio/main/films/combo-campaign.mp4"
+                 data-title="Convergence &bull; Verve Dual Motion Campaign">
+              <div class="verve-reel-video-wrap">
+                <video 
+                  class="verve-reel-video showcase-media-video" 
+                  src="https://media.githubusercontent.com/media/ammarayyaz/Minhaj_Portfolio/main/films/combo-campaign.mp4" 
+                  muted loop playsinline preload="metadata">
+                </video>
 
-          <div class="showcase-info-col">
-            <div class="showcase-header-tag">
-              <span class="showcase-index-pill">03 / 03</span>
-              <span class="showcase-client-tag">MG APPAREL &mdash; DIGITAL RELEASE</span>
-            </div>
+                <!-- Top Pill Badge -->
+                <div class="verve-reel-top-bar">
+                  <span class="verve-top-pill">REEL 02</span>
+                  <span class="verve-top-brand">VERVE</span>
+                </div>
 
-            <h3 class="showcase-video-title">Kinetic Rhythm</h3>
-            <p class="showcase-video-kicker">Omnichannel Commercial Montage</p>
+                <!-- Center Play Bubble -->
+                <div class="verve-play-bubble-wrap">
+                  <div class="showcase-play-bubble">
+                    <svg viewBox="0 0 24 24" fill="currentColor" class="showcase-icon-play">
+                      <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                    </svg>
+                    <svg viewBox="0 0 24 24" fill="currentColor" class="showcase-icon-pause" style="display: none;">
+                      <rect x="6" y="4" width="4" height="16"></rect>
+                      <rect x="14" y="4" width="4" height="16"></rect>
+                    </svg>
+                  </div>
+                </div>
 
-            <p class="showcase-video-desc">
-              Fast-paced editorial montage cut to micro-beat audio transitions, engineered for maximum audience retention across modern digital platforms.
-            </p>
+                <!-- Initial Unhovered Preview Bar -->
+                <div class="verve-reel-initial-bar">
+                  <span class="verve-initial-idx">02 &bull; VERVE</span>
+                  <span class="verve-initial-title">Convergence</span>
+                  <span class="verve-initial-kicker">Flagship Dual-Talent Campaign</span>
+                </div>
 
-            <div class="showcase-specs-list">
-              <span class="spec-pill">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
-                9:16 Vertical Master
-              </span>
-              <span class="spec-pill">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
-                Adobe Premiere Pro Suite
-              </span>
-              <span class="spec-pill">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                Micro-Beat Audio Sync
-              </span>
-              <span class="spec-pill">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon"><path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"></path><line x1="16" y1="8" x2="2" y2="22"></line><line x1="17.5" y1="15" x2="9" y2="15"></line></svg>
-                Post-Production &amp; Montage
-              </span>
-            </div>
+                <!-- Hover Detail Drawer (Slides from bottom with blur background) -->
+                <div class="verve-reel-hover-panel">
+                  <div class="verve-panel-header">
+                    <span class="verve-panel-pill">02 / 03</span>
+                    <span class="verve-panel-client">VERVE COLLECTION</span>
+                  </div>
 
-            <div class="showcase-cta-row">
-              <button class="showcase-cta-btn showcase-btn-primary edge-cinema-view-btn" type="button" aria-label="Open Full Cinema Mode">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon">
-                  <polyline points="15 3 21 3 21 9"></polyline>
-                  <polyline points="9 21 3 21 3 15"></polyline>
-                  <line x1="21" y1="3" x2="14" y2="10"></line>
-                  <line x1="3" y1="21" x2="10" y2="14"></line>
-                </svg>
-                <span>Fullscreen View</span>
-              </button>
+                  <h4 class="verve-panel-title">Convergence</h4>
+                  <p class="verve-panel-kicker">Flagship Dual-Talent Campaign</p>
 
-              <button class="showcase-cta-btn showcase-btn-sound" type="button" aria-label="Toggle Video Sound">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon sound-off-icon">
-                  <line x1="1" y1="1" x2="23" y2="23"></line>
-                  <path d="M9 9v3a3 3 0 0 0 5.12 2.12M15 9.34V4a3 3 0 0 0-5.94-.6"></path>
-                  <path d="M17 16.95A7 7 0 0 1 5 12v-2m14 0v2a7 7 0 0 1-.11 1.23"></path>
-                </svg>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon sound-on-icon" style="display: none;">
-                  <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-                  <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-                </svg>
-                <span class="sound-label">Audio Off</span>
-              </button>
-            </div>
-          </div>
+                  <p class="verve-panel-desc">
+                    High-energy commercial staging featuring synchronized talent movement, motorized gimbal tracking, and dynamic contrast grading tailored for Verve.
+                  </p>
 
-          <div class="showcase-video-col">
-            <div class="showcase-clean-video-frame">
-              <video 
-                class="showcase-media-video edge-media-video" 
-                src="https://media.githubusercontent.com/media/ammarayyaz/Minhaj_Portfolio/main/films/web-reel.mp4" 
-                muted 
-                loop 
-                playsinline 
-                preload="metadata">
-              </video>
+                  <div class="verve-panel-specs">
+                    <span class="verve-spec-tag">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+                      9:16 Vertical
+                    </span>
+                    <span class="verve-spec-tag">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                      DJI RS4 Gimbal
+                    </span>
+                    <span class="verve-spec-tag">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                      60fps High Frame Rate
+                    </span>
+                    <span class="verve-spec-tag">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon"><path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"></path><line x1="16" y1="8" x2="2" y2="22"></line><line x1="17.5" y1="15" x2="9" y2="15"></line></svg>
+                      Commercial Staging
+                    </span>
+                  </div>
 
-              <div class="showcase-play-overlay">
-                <div class="showcase-play-bubble">
-                  <svg viewBox="0 0 24 24" fill="currentColor" class="showcase-icon-play">
-                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
-                  </svg>
-                  <svg viewBox="0 0 24 24" fill="currentColor" class="showcase-icon-pause" style="display: none;">
-                    <rect x="6" y="4" width="4" height="16"></rect>
-                    <rect x="14" y="4" width="4" height="16"></rect>
-                  </svg>
+                  <!-- Video Scrub Track inside Drawer -->
+                  <div class="verve-hud-row">
+                    <div class="showcase-progress-track" title="Click to scrub">
+                      <div class="showcase-progress-bar"></div>
+                    </div>
+                    <div class="showcase-hud-bar">
+                      <span class="showcase-time-display">00:00</span>
+                      <button class="showcase-hud-sound-toggle" type="button" title="Toggle Sound" aria-label="Toggle sound">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="hud-sound-icon-muted">
+                          <line x1="1" y1="1" x2="23" y2="23"></line>
+                          <path d="M9 9v3a3 3 0 0 0 5.12 2.12M15 9.34V4a3 3 0 0 0-5.94-.6"></path>
+                          <path d="M17 16.95A7 7 0 0 1 5 12v-2m14 0v2a7 7 0 0 1-.11 1.23"></path>
+                        </svg>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="hud-sound-icon-active" style="display: none;">
+                          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                          <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Actions -->
+                  <div class="verve-panel-actions">
+                    <button class="verve-panel-btn verve-btn-fullscreen edge-cinema-view-btn" type="button" aria-label="Open Full Cinema Mode">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon">
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <polyline points="9 21 3 21 3 15"></polyline>
+                        <line x1="21" y1="3" x2="14" y2="10"></line>
+                        <line x1="3" y1="21" x2="10" y2="14"></line>
+                      </svg>
+                      <span>Fullscreen View</span>
+                    </button>
+                    <button class="verve-panel-btn verve-btn-sound showcase-btn-sound" type="button" aria-label="Toggle Video Sound">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon sound-off-icon">
+                        <line x1="1" y1="1" x2="23" y2="23"></line>
+                        <path d="M9 9v3a3 3 0 0 0 5.12 2.12M15 9.34V4a3 3 0 0 0-5.94-.6"></path>
+                        <path d="M17 16.95A7 7 0 0 1 5 12v-2m14 0v2a7 7 0 0 1-.11 1.23"></path>
+                      </svg>
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon sound-on-icon" style="display: none;">
+                        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                        <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                      </svg>
+                      <span class="sound-label">Audio Off</span>
+                    </button>
+                  </div>
                 </div>
               </div>
+            </div>
 
-              <div class="showcase-hud-bottom">
-                <div class="showcase-progress-track" title="Click to scrub">
-                  <div class="showcase-progress-bar"></div>
+            <!-- Reel 03: Kinetic Rhythm -->
+            <div class="verve-reel-card" 
+                 id="verve-reel-3"
+                 data-video-src="https://media.githubusercontent.com/media/ammarayyaz/Minhaj_Portfolio/main/films/web-reel.mp4"
+                 data-title="Kinetic Rhythm &bull; Verve Commercial Montage">
+              <div class="verve-reel-video-wrap">
+                <video 
+                  class="verve-reel-video showcase-media-video" 
+                  src="https://media.githubusercontent.com/media/ammarayyaz/Minhaj_Portfolio/main/films/web-reel.mp4" 
+                  muted loop playsinline preload="metadata">
+                </video>
+
+                <!-- Top Pill Badge -->
+                <div class="verve-reel-top-bar">
+                  <span class="verve-top-pill">REEL 03</span>
+                  <span class="verve-top-brand">VERVE</span>
                 </div>
-                <div class="showcase-hud-bar">
-                  <span class="showcase-time-display">00:00</span>
-                  <button class="showcase-hud-sound-toggle" type="button" title="Sound Toggle" aria-label="Toggle sound">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="hud-sound-icon-muted">
-                      <line x1="1" y1="1" x2="23" y2="23"></line>
-                      <path d="M9 9v3a3 3 0 0 0 5.12 2.12M15 9.34V4a3 3 0 0 0-5.94-.6"></path>
-                      <path d="M17 16.95A7 7 0 0 1 5 12v-2m14 0v2a7 7 0 0 1-.11 1.23"></path>
+
+                <!-- Center Play Bubble -->
+                <div class="verve-play-bubble-wrap">
+                  <div class="showcase-play-bubble">
+                    <svg viewBox="0 0 24 24" fill="currentColor" class="showcase-icon-play">
+                      <polygon points="5 3 19 12 5 21 5 3"></polygon>
                     </svg>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="hud-sound-icon-active" style="display: none;">
-                      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-                      <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                    <svg viewBox="0 0 24 24" fill="currentColor" class="showcase-icon-pause" style="display: none;">
+                      <rect x="6" y="4" width="4" height="16"></rect>
+                      <rect x="14" y="4" width="4" height="16"></rect>
                     </svg>
-                  </button>
+                  </div>
+                </div>
+
+                <!-- Initial Unhovered Preview Bar -->
+                <div class="verve-reel-initial-bar">
+                  <span class="verve-initial-idx">03 &bull; VERVE</span>
+                  <span class="verve-initial-title">Kinetic Rhythm</span>
+                  <span class="verve-initial-kicker">Omnichannel Commercial Montage</span>
+                </div>
+
+                <!-- Hover Detail Drawer (Slides from bottom with blur background) -->
+                <div class="verve-reel-hover-panel">
+                  <div class="verve-panel-header">
+                    <span class="verve-panel-pill">03 / 03</span>
+                    <span class="verve-panel-client">VERVE COLLECTION</span>
+                  </div>
+
+                  <h4 class="verve-panel-title">Kinetic Rhythm</h4>
+                  <p class="verve-panel-kicker">Omnichannel Commercial Montage</p>
+
+                  <p class="verve-panel-desc">
+                    Fast-paced editorial montage cut to micro-beat audio transitions, engineered for maximum audience retention across modern digital platforms for Verve.
+                  </p>
+
+                  <div class="verve-panel-specs">
+                    <span class="verve-spec-tag">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+                      9:16 Vertical
+                    </span>
+                    <span class="verve-spec-tag">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                      Premiere Pro
+                    </span>
+                    <span class="verve-spec-tag">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                      Micro-Beat Sync
+                    </span>
+                    <span class="verve-spec-tag">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon"><path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"></path><line x1="16" y1="8" x2="2" y2="22"></line><line x1="17.5" y1="15" x2="9" y2="15"></line></svg>
+                      Dynamic Montage
+                    </span>
+                  </div>
+
+                  <!-- Video Scrub Track inside Drawer -->
+                  <div class="verve-hud-row">
+                    <div class="showcase-progress-track" title="Click to scrub">
+                      <div class="showcase-progress-bar"></div>
+                    </div>
+                    <div class="showcase-hud-bar">
+                      <span class="showcase-time-display">00:00</span>
+                      <button class="showcase-hud-sound-toggle" type="button" title="Toggle Sound" aria-label="Toggle sound">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="hud-sound-icon-muted">
+                          <line x1="1" y1="1" x2="23" y2="23"></line>
+                          <path d="M9 9v3a3 3 0 0 0 5.12 2.12M15 9.34V4a3 3 0 0 0-5.94-.6"></path>
+                          <path d="M17 16.95A7 7 0 0 1 5 12v-2m14 0v2a7 7 0 0 1-.11 1.23"></path>
+                        </svg>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="hud-sound-icon-active" style="display: none;">
+                          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                          <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Actions -->
+                  <div class="verve-panel-actions">
+                    <button class="verve-panel-btn verve-btn-fullscreen edge-cinema-view-btn" type="button" aria-label="Open Full Cinema Mode">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon">
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <polyline points="9 21 3 21 3 15"></polyline>
+                        <line x1="21" y1="3" x2="14" y2="10"></line>
+                        <line x1="3" y1="21" x2="10" y2="14"></line>
+                      </svg>
+                      <span>Fullscreen View</span>
+                    </button>
+                    <button class="verve-panel-btn verve-btn-sound showcase-btn-sound" type="button" aria-label="Toggle Video Sound">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon sound-off-icon">
+                        <line x1="1" y1="1" x2="23" y2="23"></line>
+                        <path d="M9 9v3a3 3 0 0 0 5.12 2.12M15 9.34V4a3 3 0 0 0-5.94-.6"></path>
+                        <path d="M17 16.95A7 7 0 0 1 5 12v-2m14 0v2a7 7 0 0 1-.11 1.23"></path>
+                      </svg>
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon sound-on-icon" style="display: none;">
+                        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                        <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                      </svg>
+                      <span class="sound-label">Audio Off</span>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
+
           </div>
         </article>
 
@@ -4073,101 +4791,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const heroVideo = document.getElementById('heroVideo');
 
 
-  // --- 0. Cinematic Studio Preloader / Starting Screen (High-Speed & Advanced) ---
-  const studioPreloader = document.getElementById('studioPreloader');
-  const preloaderVideo = document.getElementById('preloaderVideo');
-  const preloaderLineBar = document.getElementById('preloaderLineBar');
-  const preloaderCounter = document.getElementById('preloaderCounter');
-  let preloaderDismissed = false;
-
-  function dismissPreloader() {
-    if (preloaderDismissed || !studioPreloader) return;
-    preloaderDismissed = true;
-
-    if (preloaderLineBar) preloaderLineBar.style.width = '100%';
-    if (preloaderCounter) preloaderCounter.textContent = '100%';
-
-    studioPreloader.classList.add('loaded');
-
-    if (heroVideo) {
-      heroVideo.muted = true;
-      heroVideo.play().catch(() => {});
-    }
-
-    setTimeout(() => {
-      if (preloaderVideo) {
-        try { preloaderVideo.pause(); } catch (e) {}
-      }
-      studioPreloader.style.display = 'none';
-      if (heroVideo) {
-        heroVideo.muted = true;
-        heroVideo.play().catch(() => {});
-      }
-    }, 400);
-  }
-
-  if (studioPreloader && preloaderVideo) {
-    studioPreloader.style.backgroundColor = '#ffffff';
-    preloaderVideo.muted = true;
-    preloaderVideo.playsInline = true;
-
-    // Fast playback speed for instant kinetic energy
-    preloaderVideo.playbackRate = 2.4;
-
-    const START_OFFSET_SEC = 0.55;
-
-    const enforceStartTime = () => {
-      try {
-        preloaderVideo.playbackRate = 2.4;
-        if (preloaderVideo.currentTime < START_OFFSET_SEC) {
-          preloaderVideo.currentTime = START_OFFSET_SEC;
-        }
-      } catch (e) {}
-    };
-
-    preloaderVideo.addEventListener('loadedmetadata', enforceStartTime);
-    preloaderVideo.addEventListener('canplay', enforceStartTime);
-    preloaderVideo.addEventListener('play', enforceStartTime);
-
-    // Synchronize fast progress bar & counter
-    preloaderVideo.addEventListener('timeupdate', () => {
-      if (!preloaderDismissed && preloaderVideo.duration) {
-        const start = START_OFFSET_SEC;
-        const total = Math.max(0.1, preloaderVideo.duration - start);
-        const current = Math.max(0, preloaderVideo.currentTime - start);
-        const progress = Math.min(100, Math.round((current / total) * 100));
-
-        if (preloaderLineBar) preloaderLineBar.style.width = `${progress}%`;
-        if (preloaderCounter) preloaderCounter.textContent = `${progress}%`;
-
-        if (preloaderVideo.currentTime >= preloaderVideo.duration - 0.08) {
-          dismissPreloader();
-        }
-      }
-    });
-
-    preloaderVideo.addEventListener('ended', () => {
-      dismissPreloader();
-    });
-
-    // Rapid immediate playback trigger
-    const p = preloaderVideo.play();
-    if (p !== undefined) {
-      p.catch(() => {});
-    }
-
-    // Click or keypress to skip immediately
-    studioPreloader.addEventListener('click', dismissPreloader);
-    window.addEventListener('keydown', (e) => {
-      if (!preloaderDismissed && (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ')) {
-        dismissPreloader();
-      }
-    }, { once: true });
-
-    // Ultra-fast safety timeout cap (maximum 1.6s so page is guaranteed fast)
-    setTimeout(dismissPreloader, 1600);
-  } else if (studioPreloader) {
-    dismissPreloader();
+  // --- Direct Hero Video Autoplay ---
+  if (heroVideo) {
+    heroVideo.muted = true;
+    heroVideo.play().catch(() => {});
   }
 
   // --- 0.1 Universal Interactive Animated SVGs on Click ---
@@ -4459,8 +5086,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-  // --- 2.2. Vertical Campaign Showcase Controller ---
-  const verticalRows = document.querySelectorAll('.vertical-showcase-row');
+  // --- 2.2. Multi-Reel & Showcase Controller ---
+  const verticalRows = document.querySelectorAll('.vertical-showcase-row:not(.verve-project-showcase)');
+  const verveCards = document.querySelectorAll('.verve-reel-card');
+  const verveAmbientVideo = document.getElementById('verveAmbientVideo');
 
   // Format SMPTE Timecode: HH:MM:SS:FF
   function formatSMPTE(seconds) {
@@ -4473,12 +5102,22 @@ document.addEventListener('DOMContentLoaded', () => {
     return `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}:${frames.toString().padStart(2, '0')}`;
   }
 
-  // Mute all other vertical showcase videos and hero video when one plays with audio
+  // Mute all other videos and hero video when one plays with audio
   function muteAllOtherVideos(exceptVideo) {
+    document.querySelectorAll('.showcase-media-video, .verve-reel-video').forEach(v => {
+      if (v && v !== exceptVideo) {
+        v.muted = true;
+      }
+    });
+    verveCards.forEach(c => {
+      const v = c.querySelector('.showcase-media-video');
+      if (v && v !== exceptVideo) {
+        updateCardSoundUI(c, false);
+      }
+    });
     verticalRows.forEach(row => {
       const v = row.querySelector('.showcase-media-video');
       if (v && v !== exceptVideo) {
-        v.muted = true;
         updateRowSoundUI(row, false);
       }
     });
@@ -4487,10 +5126,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  function updateRowSoundUI(row, isSoundOn) {
-    const soundBtn = row.querySelector('.showcase-btn-sound');
-    const hudSoundBtn = row.querySelector('.showcase-hud-sound-toggle');
-    
+  function updateCardSoundUI(card, isSoundOn) {
+    const soundBtn = card.querySelector('.verve-btn-sound, .showcase-btn-sound');
+    const hudSoundBtn = card.querySelector('.showcase-hud-sound-toggle');
     if (soundBtn) {
       soundBtn.classList.toggle('sound-active', isSoundOn);
       const label = soundBtn.querySelector('.sound-label');
@@ -4500,7 +5138,6 @@ document.addEventListener('DOMContentLoaded', () => {
       if (offIcon) offIcon.style.display = isSoundOn ? 'none' : 'block';
       if (onIcon) onIcon.style.display = isSoundOn ? 'block' : 'none';
     }
-
     if (hudSoundBtn) {
       const hudMuted = hudSoundBtn.querySelector('.hud-sound-icon-muted');
       const hudActive = hudSoundBtn.querySelector('.hud-sound-icon-active');
@@ -4509,6 +5146,176 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  function updateRowSoundUI(row, isSoundOn) {
+    const soundBtn = row.querySelector('.showcase-btn-sound');
+    const hudSoundBtn = row.querySelector('.showcase-hud-sound-toggle');
+    if (soundBtn) {
+      soundBtn.classList.toggle('sound-active', isSoundOn);
+      const label = soundBtn.querySelector('.sound-label');
+      const offIcon = soundBtn.querySelector('.sound-off-icon');
+      const onIcon = soundBtn.querySelector('.sound-on-icon');
+      if (label) label.textContent = isSoundOn ? 'Audio On' : 'Audio Off';
+      if (offIcon) offIcon.style.display = isSoundOn ? 'none' : 'block';
+      if (onIcon) onIcon.style.display = isSoundOn ? 'block' : 'none';
+    }
+    if (hudSoundBtn) {
+      const hudMuted = hudSoundBtn.querySelector('.hud-sound-icon-muted');
+      const hudActive = hudSoundBtn.querySelector('.hud-sound-icon-active');
+      if (hudMuted) hudMuted.style.display = isSoundOn ? 'none' : 'block';
+      if (hudActive) hudActive.style.display = isSoundOn ? 'block' : 'none';
+    }
+  }
+
+  // --- Initialize Verve Reel Cards ---
+  verveCards.forEach(card => {
+    const video = card.querySelector('.showcase-media-video');
+    const playBubble = card.querySelector('.verve-play-bubble-wrap');
+    const playIcon = card.querySelector('.showcase-icon-play');
+    const pauseIcon = card.querySelector('.showcase-icon-pause');
+    const cinemaBtn = card.querySelector('.edge-cinema-view-btn');
+    const soundBtn = card.querySelector('.showcase-btn-sound');
+    const hudSoundBtn = card.querySelector('.showcase-hud-sound-toggle');
+    const progressTrack = card.querySelector('.showcase-progress-track');
+    const progressBar = card.querySelector('.showcase-progress-bar');
+    const timeDisplay = card.querySelector('.showcase-time-display');
+    const videoSrc = card.getAttribute('data-video-src');
+    const filmTitle = card.getAttribute('data-title');
+
+    if (!video) return;
+
+    function playCardVideo() {
+      card.classList.add('is-playing');
+      if (playIcon) playIcon.style.display = 'none';
+      if (pauseIcon) pauseIcon.style.display = 'block';
+      video.play().catch(() => {});
+
+      if (verveAmbientVideo) {
+        if (verveAmbientVideo.src !== videoSrc) {
+          verveAmbientVideo.src = videoSrc;
+        }
+        verveAmbientVideo.muted = true;
+        verveAmbientVideo.play().catch(() => {});
+      }
+    }
+
+    function pauseCardVideo() {
+      card.classList.remove('is-playing');
+      if (playIcon) playIcon.style.display = 'block';
+      if (pauseIcon) pauseIcon.style.display = 'none';
+      video.pause();
+    }
+
+    // Hover to play
+    card.addEventListener('mouseenter', () => {
+      playCardVideo();
+    });
+
+    // Mouse leave pauses if muted
+    card.addEventListener('mouseleave', () => {
+      if (video.muted) {
+        pauseCardVideo();
+      }
+    });
+
+    // Toggle play/pause on play bubble or video frame click (outside buttons & scrub)
+    const videoWrap = card.querySelector('.verve-reel-video-wrap');
+    if (videoWrap) {
+      videoWrap.addEventListener('click', (e) => {
+        if (e.target.closest('button') || e.target.closest('.showcase-progress-track') || e.target.closest('.verve-reel-hover-panel')) return;
+        if (video.paused) {
+          playCardVideo();
+        } else {
+          pauseCardVideo();
+        }
+      });
+    }
+
+    if (playBubble) {
+      playBubble.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (video.paused) {
+          playCardVideo();
+        } else {
+          pauseCardVideo();
+        }
+      });
+    }
+
+    // Sound toggle
+    function toggleCardSound() {
+      const willUnmute = video.muted;
+      if (willUnmute) {
+        muteAllOtherVideos(video);
+        video.muted = false;
+        playCardVideo();
+        updateCardSoundUI(card, true);
+      } else {
+        video.muted = true;
+        updateCardSoundUI(card, false);
+      }
+    }
+
+    if (soundBtn) {
+      soundBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleCardSound();
+      });
+    }
+    if (hudSoundBtn) {
+      hudSoundBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleCardSound();
+      });
+    }
+
+    // Progress updates
+    video.addEventListener('timeupdate', () => {
+      if (video.duration && progressBar) {
+        const percent = (video.currentTime / video.duration) * 100;
+        progressBar.style.width = `${percent}%`;
+      }
+      if (timeDisplay) {
+        timeDisplay.textContent = formatTime(video.currentTime);
+      }
+      if (verveAmbientVideo && Math.abs(verveAmbientVideo.currentTime - video.currentTime) > 0.3) {
+        try { verveAmbientVideo.currentTime = video.currentTime; } catch (e) {}
+      }
+    });
+
+    video.addEventListener('play', () => {
+      card.classList.add('is-playing');
+      if (playIcon) playIcon.style.display = 'none';
+      if (pauseIcon) pauseIcon.style.display = 'block';
+    });
+
+    video.addEventListener('pause', () => {
+      card.classList.remove('is-playing');
+      if (playIcon) playIcon.style.display = 'block';
+      if (pauseIcon) pauseIcon.style.display = 'none';
+    });
+
+    // Scrubbing
+    if (progressTrack) {
+      progressTrack.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const rect = progressTrack.getBoundingClientRect();
+        const clickPos = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+        if (video.duration) {
+          video.currentTime = clickPos * video.duration;
+        }
+      });
+    }
+
+    // Fullscreen Cinema mode
+    if (cinemaBtn) {
+      cinemaBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openLightboxVideo(videoSrc, filmTitle);
+      });
+    }
+  });
+
+  // Fallback for standard single-item verticalRows (if any)
   verticalRows.forEach(row => {
     const video = row.querySelector('.showcase-media-video');
     const ambientVideo = row.querySelector('.showcase-ambient-video');
@@ -4519,7 +5326,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const progressTrack = row.querySelector('.showcase-progress-track');
     const progressBar = row.querySelector('.showcase-progress-bar');
     const timeDisplay = row.querySelector('.showcase-time-display');
-    const hudTc = row.querySelector('[data-hud-tc]');
     const playIcon = row.querySelector('.showcase-icon-play');
     const pauseIcon = row.querySelector('.showcase-icon-pause');
     const videoSrc = row.getAttribute('data-video-src');
@@ -4527,13 +5333,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!video) return;
 
-    // Helper to play both foreground and ambient background video
     function playRowVideos() {
       row.classList.add('is-playing');
       if (frame) frame.classList.add('is-playing');
       if (playIcon) playIcon.style.display = 'none';
       if (pauseIcon) pauseIcon.style.display = 'block';
-
       video.play().catch(() => {});
       if (ambientVideo) {
         ambientVideo.muted = true;
@@ -4541,37 +5345,25 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
-    // Helper to pause both foreground and ambient background video
     function pauseRowVideos() {
       row.classList.remove('is-playing');
       if (frame) frame.classList.remove('is-playing');
       if (playIcon) playIcon.style.display = 'block';
       if (pauseIcon) pauseIcon.style.display = 'none';
-
       video.pause();
-      if (ambientVideo) {
-        ambientVideo.pause();
-      }
+      if (ambientVideo) ambientVideo.pause();
     }
 
-    // Hover on entire row or frame triggers playback
-    row.addEventListener('mouseenter', () => {
-      playRowVideos();
-    });
+    row.addEventListener('mouseenter', () => playRowVideos());
 
-    // Click frame or play overlay toggles play/pause
     if (frame) {
       frame.addEventListener('click', (e) => {
         if (e.target.closest('.showcase-hud-bottom') || e.target.closest('button')) return;
-        if (video.paused) {
-          playRowVideos();
-        } else {
-          pauseRowVideos();
-        }
+        if (video.paused) playRowVideos();
+        else pauseRowVideos();
       });
     }
 
-    // Sound toggle helper
     function toggleVideoSound() {
       const willUnmute = video.muted;
       if (willUnmute) {
@@ -4585,79 +5377,37 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
-    if (soundBtn) {
-      soundBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        toggleVideoSound();
-      });
-    }
+    if (soundBtn) soundBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleVideoSound(); });
+    if (hudSoundBtn) hudSoundBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleVideoSound(); });
 
-    if (hudSoundBtn) {
-      hudSoundBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        toggleVideoSound();
-      });
-    }
-
-    // Real-time progress, timecode updates, and ambient video sync
     video.addEventListener('timeupdate', () => {
       if (video.duration && progressBar) {
-        const percent = (video.currentTime / video.duration) * 100;
-        progressBar.style.width = `${percent}%`;
+        progressBar.style.width = `${(video.currentTime / video.duration) * 100}%`;
       }
-      if (timeDisplay) {
-        timeDisplay.textContent = formatTime(video.currentTime);
-      }
-      if (hudTc) {
-        hudTc.textContent = formatSMPTE(video.currentTime);
-      }
-      // Ensure ambient video is synced within 0.25s
-      if (ambientVideo && Math.abs(ambientVideo.currentTime - video.currentTime) > 0.25) {
-        try {
-          ambientVideo.currentTime = video.currentTime;
-        } catch (e) {}
-      }
+      if (timeDisplay) timeDisplay.textContent = formatTime(video.currentTime);
     });
 
     video.addEventListener('play', () => {
-      if (ambientVideo && ambientVideo.paused) {
-        ambientVideo.currentTime = video.currentTime;
-        ambientVideo.muted = true;
-        ambientVideo.play().catch(() => {});
-      }
       row.classList.add('is-playing');
-      if (frame) frame.classList.add('is-playing');
       if (playIcon) playIcon.style.display = 'none';
       if (pauseIcon) pauseIcon.style.display = 'block';
     });
 
     video.addEventListener('pause', () => {
-      if (ambientVideo && !ambientVideo.paused) {
-        ambientVideo.pause();
-      }
       row.classList.remove('is-playing');
-      if (frame) frame.classList.remove('is-playing');
       if (playIcon) playIcon.style.display = 'block';
       if (pauseIcon) pauseIcon.style.display = 'none';
     });
 
-    // Progress Bar Scrubbing
     if (progressTrack) {
       progressTrack.addEventListener('click', (e) => {
         e.stopPropagation();
         const rect = progressTrack.getBoundingClientRect();
         const clickPos = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
-        if (video.duration) {
-          const newTime = clickPos * video.duration;
-          video.currentTime = newTime;
-          if (ambientVideo) {
-            ambientVideo.currentTime = newTime;
-          }
-        }
+        if (video.duration) video.currentTime = clickPos * video.duration;
       });
     }
 
-    // Fullscreen Cinema button
     if (cinemaBtn) {
       cinemaBtn.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -4666,29 +5416,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Scroll Autoplay Intersection Observer for Showcase Rows (plays foreground + ambient when scrolled to section)
+  // Scroll Autoplay Intersection Observer for Showcase Rows
   if ('IntersectionObserver' in window) {
+    const allRows = document.querySelectorAll('.vertical-showcase-row');
     const rowObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         const row = entry.target;
-        const video = row.querySelector('.showcase-media-video');
         const ambientVideo = row.querySelector('.showcase-ambient-video');
 
         if (entry.isIntersecting) {
           row.classList.add('in-view');
-          if (video) {
-            video.muted = true;
-            video.play().catch(() => {});
-          }
           if (ambientVideo) {
             ambientVideo.muted = true;
             ambientVideo.play().catch(() => {});
           }
         } else {
           row.classList.remove('in-view');
-          if (video && video.muted) {
-            video.pause();
-          }
           if (ambientVideo) {
             ambientVideo.pause();
           }
@@ -4696,9 +5439,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }, { threshold: 0.25 });
 
-    verticalRows.forEach(row => rowObserver.observe(row));
-  } else {
-    verticalRows.forEach(row => row.classList.add('in-view'));
+    allRows.forEach(row => rowObserver.observe(row));
   }
 
   // --- 2.5. Interactive Category Filter System ---

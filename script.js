@@ -9,101 +9,10 @@
 document.addEventListener('DOMContentLoaded', () => {
   const heroVideo = document.getElementById('heroVideo');
 
-  // --- 0. Cinematic Studio Preloader / Starting Screen (High-Speed & Advanced) ---
-  const studioPreloader = document.getElementById('studioPreloader');
-  const preloaderVideo = document.getElementById('preloaderVideo');
-  const preloaderLineBar = document.getElementById('preloaderLineBar');
-  const preloaderCounter = document.getElementById('preloaderCounter');
-  let preloaderDismissed = false;
-
-  function dismissPreloader() {
-    if (preloaderDismissed || !studioPreloader) return;
-    preloaderDismissed = true;
-
-    if (preloaderLineBar) preloaderLineBar.style.width = '100%';
-    if (preloaderCounter) preloaderCounter.textContent = '100%';
-
-    studioPreloader.classList.add('loaded');
-
-    if (heroVideo) {
-      heroVideo.muted = true;
-      heroVideo.play().catch(() => {});
-    }
-
-    setTimeout(() => {
-      if (preloaderVideo) {
-        try { preloaderVideo.pause(); } catch (e) {}
-      }
-      studioPreloader.style.display = 'none';
-      if (heroVideo) {
-        heroVideo.muted = true;
-        heroVideo.play().catch(() => {});
-      }
-    }, 400);
-  }
-
-  if (studioPreloader && preloaderVideo) {
-    studioPreloader.style.backgroundColor = '#ffffff';
-    preloaderVideo.muted = true;
-    preloaderVideo.playsInline = true;
-
-    // Fast playback speed for instant kinetic energy
-    preloaderVideo.playbackRate = 2.4;
-
-    const START_OFFSET_SEC = 0.55;
-
-    const enforceStartTime = () => {
-      try {
-        preloaderVideo.playbackRate = 2.4;
-        if (preloaderVideo.currentTime < START_OFFSET_SEC) {
-          preloaderVideo.currentTime = START_OFFSET_SEC;
-        }
-      } catch (e) {}
-    };
-
-    preloaderVideo.addEventListener('loadedmetadata', enforceStartTime);
-    preloaderVideo.addEventListener('canplay', enforceStartTime);
-    preloaderVideo.addEventListener('play', enforceStartTime);
-
-    // Synchronize fast progress bar & counter
-    preloaderVideo.addEventListener('timeupdate', () => {
-      if (!preloaderDismissed && preloaderVideo.duration) {
-        const start = START_OFFSET_SEC;
-        const total = Math.max(0.1, preloaderVideo.duration - start);
-        const current = Math.max(0, preloaderVideo.currentTime - start);
-        const progress = Math.min(100, Math.round((current / total) * 100));
-
-        if (preloaderLineBar) preloaderLineBar.style.width = `${progress}%`;
-        if (preloaderCounter) preloaderCounter.textContent = `${progress}%`;
-
-        if (preloaderVideo.currentTime >= preloaderVideo.duration - 0.08) {
-          dismissPreloader();
-        }
-      }
-    });
-
-    preloaderVideo.addEventListener('ended', () => {
-      dismissPreloader();
-    });
-
-    // Rapid immediate playback trigger
-    const p = preloaderVideo.play();
-    if (p !== undefined) {
-      p.catch(() => {});
-    }
-
-    // Click or keypress to skip immediately
-    studioPreloader.addEventListener('click', dismissPreloader);
-    window.addEventListener('keydown', (e) => {
-      if (!preloaderDismissed && (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ')) {
-        dismissPreloader();
-      }
-    }, { once: true });
-
-    // Ultra-fast safety timeout cap (maximum 1.6s so page is guaranteed fast)
-    setTimeout(dismissPreloader, 1600);
-  } else if (studioPreloader) {
-    dismissPreloader();
+  // --- Direct Hero Video Autoplay ---
+  if (heroVideo) {
+    heroVideo.muted = true;
+    heroVideo.play().catch(() => {});
   }
 
   // --- 0.1 Universal Interactive Animated SVGs on Click ---
@@ -395,8 +304,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-  // --- 2.2. Vertical Campaign Showcase Controller ---
-  const verticalRows = document.querySelectorAll('.vertical-showcase-row');
+  // --- 2.2. Multi-Reel & Showcase Controller ---
+  const verticalRows = document.querySelectorAll('.vertical-showcase-row:not(.verve-project-showcase)');
+  const verveCards = document.querySelectorAll('.verve-reel-card');
+  const verveAmbientVideo = document.getElementById('verveAmbientVideo');
 
   // Format SMPTE Timecode: HH:MM:SS:FF
   function formatSMPTE(seconds) {
@@ -409,12 +320,22 @@ document.addEventListener('DOMContentLoaded', () => {
     return `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}:${frames.toString().padStart(2, '0')}`;
   }
 
-  // Mute all other vertical showcase videos and hero video when one plays with audio
+  // Mute all other videos and hero video when one plays with audio
   function muteAllOtherVideos(exceptVideo) {
+    document.querySelectorAll('.showcase-media-video, .verve-reel-video').forEach(v => {
+      if (v && v !== exceptVideo) {
+        v.muted = true;
+      }
+    });
+    verveCards.forEach(c => {
+      const v = c.querySelector('.showcase-media-video');
+      if (v && v !== exceptVideo) {
+        updateCardSoundUI(c, false);
+      }
+    });
     verticalRows.forEach(row => {
       const v = row.querySelector('.showcase-media-video');
       if (v && v !== exceptVideo) {
-        v.muted = true;
         updateRowSoundUI(row, false);
       }
     });
@@ -423,10 +344,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  function updateRowSoundUI(row, isSoundOn) {
-    const soundBtn = row.querySelector('.showcase-btn-sound');
-    const hudSoundBtn = row.querySelector('.showcase-hud-sound-toggle');
-    
+  function updateCardSoundUI(card, isSoundOn) {
+    const soundBtn = card.querySelector('.verve-btn-sound, .showcase-btn-sound');
+    const hudSoundBtn = card.querySelector('.showcase-hud-sound-toggle');
     if (soundBtn) {
       soundBtn.classList.toggle('sound-active', isSoundOn);
       const label = soundBtn.querySelector('.sound-label');
@@ -436,7 +356,6 @@ document.addEventListener('DOMContentLoaded', () => {
       if (offIcon) offIcon.style.display = isSoundOn ? 'none' : 'block';
       if (onIcon) onIcon.style.display = isSoundOn ? 'block' : 'none';
     }
-
     if (hudSoundBtn) {
       const hudMuted = hudSoundBtn.querySelector('.hud-sound-icon-muted');
       const hudActive = hudSoundBtn.querySelector('.hud-sound-icon-active');
@@ -445,6 +364,176 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  function updateRowSoundUI(row, isSoundOn) {
+    const soundBtn = row.querySelector('.showcase-btn-sound');
+    const hudSoundBtn = row.querySelector('.showcase-hud-sound-toggle');
+    if (soundBtn) {
+      soundBtn.classList.toggle('sound-active', isSoundOn);
+      const label = soundBtn.querySelector('.sound-label');
+      const offIcon = soundBtn.querySelector('.sound-off-icon');
+      const onIcon = soundBtn.querySelector('.sound-on-icon');
+      if (label) label.textContent = isSoundOn ? 'Audio On' : 'Audio Off';
+      if (offIcon) offIcon.style.display = isSoundOn ? 'none' : 'block';
+      if (onIcon) onIcon.style.display = isSoundOn ? 'block' : 'none';
+    }
+    if (hudSoundBtn) {
+      const hudMuted = hudSoundBtn.querySelector('.hud-sound-icon-muted');
+      const hudActive = hudSoundBtn.querySelector('.hud-sound-icon-active');
+      if (hudMuted) hudMuted.style.display = isSoundOn ? 'none' : 'block';
+      if (hudActive) hudActive.style.display = isSoundOn ? 'block' : 'none';
+    }
+  }
+
+  // --- Initialize Verve Reel Cards ---
+  verveCards.forEach(card => {
+    const video = card.querySelector('.showcase-media-video');
+    const playBubble = card.querySelector('.verve-play-bubble-wrap');
+    const playIcon = card.querySelector('.showcase-icon-play');
+    const pauseIcon = card.querySelector('.showcase-icon-pause');
+    const cinemaBtn = card.querySelector('.edge-cinema-view-btn');
+    const soundBtn = card.querySelector('.showcase-btn-sound');
+    const hudSoundBtn = card.querySelector('.showcase-hud-sound-toggle');
+    const progressTrack = card.querySelector('.showcase-progress-track');
+    const progressBar = card.querySelector('.showcase-progress-bar');
+    const timeDisplay = card.querySelector('.showcase-time-display');
+    const videoSrc = card.getAttribute('data-video-src');
+    const filmTitle = card.getAttribute('data-title');
+
+    if (!video) return;
+
+    function playCardVideo() {
+      card.classList.add('is-playing');
+      if (playIcon) playIcon.style.display = 'none';
+      if (pauseIcon) pauseIcon.style.display = 'block';
+      video.play().catch(() => {});
+
+      if (verveAmbientVideo) {
+        if (verveAmbientVideo.src !== videoSrc) {
+          verveAmbientVideo.src = videoSrc;
+        }
+        verveAmbientVideo.muted = true;
+        verveAmbientVideo.play().catch(() => {});
+      }
+    }
+
+    function pauseCardVideo() {
+      card.classList.remove('is-playing');
+      if (playIcon) playIcon.style.display = 'block';
+      if (pauseIcon) pauseIcon.style.display = 'none';
+      video.pause();
+    }
+
+    // Hover to play
+    card.addEventListener('mouseenter', () => {
+      playCardVideo();
+    });
+
+    // Mouse leave pauses if muted
+    card.addEventListener('mouseleave', () => {
+      if (video.muted) {
+        pauseCardVideo();
+      }
+    });
+
+    // Toggle play/pause on play bubble or video frame click (outside buttons & scrub)
+    const videoWrap = card.querySelector('.verve-reel-video-wrap');
+    if (videoWrap) {
+      videoWrap.addEventListener('click', (e) => {
+        if (e.target.closest('button') || e.target.closest('.showcase-progress-track') || e.target.closest('.verve-reel-hover-panel')) return;
+        if (video.paused) {
+          playCardVideo();
+        } else {
+          pauseCardVideo();
+        }
+      });
+    }
+
+    if (playBubble) {
+      playBubble.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (video.paused) {
+          playCardVideo();
+        } else {
+          pauseCardVideo();
+        }
+      });
+    }
+
+    // Sound toggle
+    function toggleCardSound() {
+      const willUnmute = video.muted;
+      if (willUnmute) {
+        muteAllOtherVideos(video);
+        video.muted = false;
+        playCardVideo();
+        updateCardSoundUI(card, true);
+      } else {
+        video.muted = true;
+        updateCardSoundUI(card, false);
+      }
+    }
+
+    if (soundBtn) {
+      soundBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleCardSound();
+      });
+    }
+    if (hudSoundBtn) {
+      hudSoundBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleCardSound();
+      });
+    }
+
+    // Progress updates
+    video.addEventListener('timeupdate', () => {
+      if (video.duration && progressBar) {
+        const percent = (video.currentTime / video.duration) * 100;
+        progressBar.style.width = `${percent}%`;
+      }
+      if (timeDisplay) {
+        timeDisplay.textContent = formatTime(video.currentTime);
+      }
+      if (verveAmbientVideo && Math.abs(verveAmbientVideo.currentTime - video.currentTime) > 0.3) {
+        try { verveAmbientVideo.currentTime = video.currentTime; } catch (e) {}
+      }
+    });
+
+    video.addEventListener('play', () => {
+      card.classList.add('is-playing');
+      if (playIcon) playIcon.style.display = 'none';
+      if (pauseIcon) pauseIcon.style.display = 'block';
+    });
+
+    video.addEventListener('pause', () => {
+      card.classList.remove('is-playing');
+      if (playIcon) playIcon.style.display = 'block';
+      if (pauseIcon) pauseIcon.style.display = 'none';
+    });
+
+    // Scrubbing
+    if (progressTrack) {
+      progressTrack.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const rect = progressTrack.getBoundingClientRect();
+        const clickPos = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+        if (video.duration) {
+          video.currentTime = clickPos * video.duration;
+        }
+      });
+    }
+
+    // Fullscreen Cinema mode
+    if (cinemaBtn) {
+      cinemaBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openLightboxVideo(videoSrc, filmTitle);
+      });
+    }
+  });
+
+  // Fallback for standard single-item verticalRows (if any)
   verticalRows.forEach(row => {
     const video = row.querySelector('.showcase-media-video');
     const ambientVideo = row.querySelector('.showcase-ambient-video');
@@ -455,7 +544,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const progressTrack = row.querySelector('.showcase-progress-track');
     const progressBar = row.querySelector('.showcase-progress-bar');
     const timeDisplay = row.querySelector('.showcase-time-display');
-    const hudTc = row.querySelector('[data-hud-tc]');
     const playIcon = row.querySelector('.showcase-icon-play');
     const pauseIcon = row.querySelector('.showcase-icon-pause');
     const videoSrc = row.getAttribute('data-video-src');
@@ -463,13 +551,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!video) return;
 
-    // Helper to play both foreground and ambient background video
     function playRowVideos() {
       row.classList.add('is-playing');
       if (frame) frame.classList.add('is-playing');
       if (playIcon) playIcon.style.display = 'none';
       if (pauseIcon) pauseIcon.style.display = 'block';
-
       video.play().catch(() => {});
       if (ambientVideo) {
         ambientVideo.muted = true;
@@ -477,37 +563,25 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
-    // Helper to pause both foreground and ambient background video
     function pauseRowVideos() {
       row.classList.remove('is-playing');
       if (frame) frame.classList.remove('is-playing');
       if (playIcon) playIcon.style.display = 'block';
       if (pauseIcon) pauseIcon.style.display = 'none';
-
       video.pause();
-      if (ambientVideo) {
-        ambientVideo.pause();
-      }
+      if (ambientVideo) ambientVideo.pause();
     }
 
-    // Hover on entire row or frame triggers playback
-    row.addEventListener('mouseenter', () => {
-      playRowVideos();
-    });
+    row.addEventListener('mouseenter', () => playRowVideos());
 
-    // Click frame or play overlay toggles play/pause
     if (frame) {
       frame.addEventListener('click', (e) => {
         if (e.target.closest('.showcase-hud-bottom') || e.target.closest('button')) return;
-        if (video.paused) {
-          playRowVideos();
-        } else {
-          pauseRowVideos();
-        }
+        if (video.paused) playRowVideos();
+        else pauseRowVideos();
       });
     }
 
-    // Sound toggle helper
     function toggleVideoSound() {
       const willUnmute = video.muted;
       if (willUnmute) {
@@ -521,79 +595,37 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
-    if (soundBtn) {
-      soundBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        toggleVideoSound();
-      });
-    }
+    if (soundBtn) soundBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleVideoSound(); });
+    if (hudSoundBtn) hudSoundBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleVideoSound(); });
 
-    if (hudSoundBtn) {
-      hudSoundBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        toggleVideoSound();
-      });
-    }
-
-    // Real-time progress, timecode updates, and ambient video sync
     video.addEventListener('timeupdate', () => {
       if (video.duration && progressBar) {
-        const percent = (video.currentTime / video.duration) * 100;
-        progressBar.style.width = `${percent}%`;
+        progressBar.style.width = `${(video.currentTime / video.duration) * 100}%`;
       }
-      if (timeDisplay) {
-        timeDisplay.textContent = formatTime(video.currentTime);
-      }
-      if (hudTc) {
-        hudTc.textContent = formatSMPTE(video.currentTime);
-      }
-      // Ensure ambient video is synced within 0.25s
-      if (ambientVideo && Math.abs(ambientVideo.currentTime - video.currentTime) > 0.25) {
-        try {
-          ambientVideo.currentTime = video.currentTime;
-        } catch (e) {}
-      }
+      if (timeDisplay) timeDisplay.textContent = formatTime(video.currentTime);
     });
 
     video.addEventListener('play', () => {
-      if (ambientVideo && ambientVideo.paused) {
-        ambientVideo.currentTime = video.currentTime;
-        ambientVideo.muted = true;
-        ambientVideo.play().catch(() => {});
-      }
       row.classList.add('is-playing');
-      if (frame) frame.classList.add('is-playing');
       if (playIcon) playIcon.style.display = 'none';
       if (pauseIcon) pauseIcon.style.display = 'block';
     });
 
     video.addEventListener('pause', () => {
-      if (ambientVideo && !ambientVideo.paused) {
-        ambientVideo.pause();
-      }
       row.classList.remove('is-playing');
-      if (frame) frame.classList.remove('is-playing');
       if (playIcon) playIcon.style.display = 'block';
       if (pauseIcon) pauseIcon.style.display = 'none';
     });
 
-    // Progress Bar Scrubbing
     if (progressTrack) {
       progressTrack.addEventListener('click', (e) => {
         e.stopPropagation();
         const rect = progressTrack.getBoundingClientRect();
         const clickPos = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
-        if (video.duration) {
-          const newTime = clickPos * video.duration;
-          video.currentTime = newTime;
-          if (ambientVideo) {
-            ambientVideo.currentTime = newTime;
-          }
-        }
+        if (video.duration) video.currentTime = clickPos * video.duration;
       });
     }
 
-    // Fullscreen Cinema button
     if (cinemaBtn) {
       cinemaBtn.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -602,29 +634,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Scroll Autoplay Intersection Observer for Showcase Rows (plays foreground + ambient when scrolled to section)
+  // Scroll Autoplay Intersection Observer for Showcase Rows
   if ('IntersectionObserver' in window) {
+    const allRows = document.querySelectorAll('.vertical-showcase-row');
     const rowObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         const row = entry.target;
-        const video = row.querySelector('.showcase-media-video');
         const ambientVideo = row.querySelector('.showcase-ambient-video');
 
         if (entry.isIntersecting) {
           row.classList.add('in-view');
-          if (video) {
-            video.muted = true;
-            video.play().catch(() => {});
-          }
           if (ambientVideo) {
             ambientVideo.muted = true;
             ambientVideo.play().catch(() => {});
           }
         } else {
           row.classList.remove('in-view');
-          if (video && video.muted) {
-            video.pause();
-          }
           if (ambientVideo) {
             ambientVideo.pause();
           }
@@ -632,9 +657,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }, { threshold: 0.25 });
 
-    verticalRows.forEach(row => rowObserver.observe(row));
-  } else {
-    verticalRows.forEach(row => row.classList.add('in-view'));
+    allRows.forEach(row => rowObserver.observe(row));
   }
 
   // --- 2.5. Interactive Category Filter System ---
