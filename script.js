@@ -884,7 +884,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const clientName = document.getElementById('clientName').value;
       closeInquireModal();
       inquireForm.reset();
-      showToast(`Thank you, ${clientName}! Your inquiry has been dispatched.`);
+      showToast(`Thank you, ${clientName}. Your inquiry has been sent.`);
     });
   }
 
@@ -912,8 +912,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const email = 'minhaj.rasool.visuals@gmail.com';
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(email).then(() => {
-          showToast(`Copied ${email} to clipboard!`);
-          if (copyEmailText) copyEmailText.textContent = 'Email Copied!';
+          showToast(`Email copied to clipboard`);
+          if (copyEmailText) copyEmailText.textContent = 'Email copied';
           setTimeout(() => {
             if (copyEmailText) copyEmailText.textContent = 'Copy Contact Email';
           }, 3000);
