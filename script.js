@@ -112,6 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (leftIconMuted) leftIconMuted.style.display = 'block';
       if (leftSoundWave) leftSoundWave.style.display = 'none';
     } else {
+      muteAllOtherVideos(heroVideo);
       if (iconMuted) iconMuted.style.display = 'none';
       if (iconSound) iconSound.style.display = 'block';
       if (soundLabel) soundLabel.textContent = 'Sound On';
@@ -320,27 +321,42 @@ document.addEventListener('DOMContentLoaded', () => {
     return `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}:${frames.toString().padStart(2, '0')}`;
   }
 
-  // Mute all other videos and hero video when one plays with audio
+  // Strict single-audio exclusivity: Mute all other videos when one plays with audio
   function muteAllOtherVideos(exceptVideo) {
-    document.querySelectorAll('.showcase-media-video, .verve-reel-video').forEach(v => {
+    document.querySelectorAll('video').forEach(v => {
       if (v && v !== exceptVideo) {
         v.muted = true;
       }
     });
-    verveCards.forEach(c => {
-      const v = c.querySelector('.showcase-media-video');
+    if (heroVideo && exceptVideo !== heroVideo && !heroVideo.muted) {
+      setAudioState(false);
+    }
+    const currentVerveCards = (typeof verveCards !== 'undefined' && verveCards.length) 
+      ? verveCards 
+      : document.querySelectorAll('.verve-reel-card');
+    currentVerveCards.forEach(c => {
+      const v = c.querySelector('.showcase-media-video, video');
       if (v && v !== exceptVideo) {
         updateCardSoundUI(c, false);
       }
     });
-    verticalRows.forEach(row => {
-      const v = row.querySelector('.showcase-media-video');
+    const currentVerticalRows = (typeof verticalRows !== 'undefined' && verticalRows.length)
+      ? verticalRows
+      : document.querySelectorAll('.vertical-showcase-row');
+    currentVerticalRows.forEach(row => {
+      const v = row.querySelector('.showcase-media-video, video');
       if (v && v !== exceptVideo) {
         updateRowSoundUI(row, false);
       }
     });
-    if (exceptVideo && heroVideo && !heroVideo.muted) {
-      setAudioState(false);
+    if (verveAmbientVideo && verveAmbientVideo !== exceptVideo) {
+      verveAmbientVideo.muted = true;
+    }
+    if (contactBgVideo && contactBgVideo !== exceptVideo) {
+      contactBgVideo.muted = true;
+    }
+    if (lightboxVideo && lightboxVideo !== exceptVideo) {
+      lightboxVideo.muted = true;
     }
   }
 
@@ -428,10 +444,12 @@ document.addEventListener('DOMContentLoaded', () => {
       playCardVideo();
     });
 
-    // Mouse leave pauses if muted
+    // Mouse leave immediately pauses video and silences audio
     card.addEventListener('mouseleave', () => {
-      if (video.muted) {
-        pauseCardVideo();
+      pauseCardVideo();
+      if (!video.muted) {
+        video.muted = true;
+        updateCardSoundUI(card, false);
       }
     });
 
@@ -439,7 +457,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const videoWrap = card.querySelector('.verve-reel-video-wrap');
     if (videoWrap) {
       videoWrap.addEventListener('click', (e) => {
-        if (e.target.closest('button') || e.target.closest('.showcase-progress-track') || e.target.closest('.verve-reel-hover-panel')) return;
+        if (e.target.closest('button') || e.target.closest('.showcase-progress-track') || e.target.closest('.verve-reel-popdown') || e.target.closest('.verve-reel-hover-panel')) return;
         if (video.paused) {
           playCardVideo();
         } else {
@@ -796,8 +814,13 @@ document.addEventListener('DOMContentLoaded', () => {
       lightboxImage.src = '';
     }
     if (lightboxVideo) {
+      muteAllOtherVideos(lightboxVideo);
+      if (heroVideo && !heroVideo.paused) {
+        heroVideo.pause();
+      }
       lightboxVideo.src = src;
       lightboxVideo.style.display = 'block';
+      lightboxVideo.muted = false;
       lightboxVideo.load();
       lightboxVideo.play().catch(() => {});
     }
@@ -813,6 +836,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!lightboxModal) return;
     if (lightboxVideo) {
       lightboxVideo.pause();
+      lightboxVideo.muted = true;
       lightboxVideo.src = '';
       lightboxVideo.style.display = 'none';
     }
@@ -1073,7 +1097,7 @@ document.addEventListener('DOMContentLoaded', () => {
     localStorage.setItem('minhaj_portfolio_theme', isDark ? 'dark' : 'light');
 
     if (notify) {
-      showToast(isDark ? 'Switched to Cinematic Dark Mode' : 'Switched to Gallery Light Mode');
+      showToast(isDark ? 'Switched to AMOLED Dark Mode' : 'Switched to Gallery Light Mode');
     }
   }
 
@@ -1197,6 +1221,15 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+
+  // Global Audio Exclusivity Safeguard: Never let two videos play audio simultaneously
+  document.querySelectorAll('video').forEach(vid => {
+    vid.addEventListener('volumechange', () => {
+      if (!vid.muted && vid.volume > 0) {
+        muteAllOtherVideos(vid);
+      }
+    });
+  });
 
   // Keyboard Shortcuts
   document.addEventListener('keydown', (e) => {
