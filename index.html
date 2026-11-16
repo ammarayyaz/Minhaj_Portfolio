@@ -1725,7 +1725,7 @@ body.dark-mode .brand-item:hover .brand-logo {
   position: relative;
   border-radius: var(--radius-xl);
   overflow: hidden;
-  background: #0C0F0A;
+  background: #080808;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
   aspect-ratio: 9 / 16;
   min-height: 520px;
@@ -1798,7 +1798,7 @@ body.dark-mode .brand-item:hover .brand-logo {
   font-weight: 700;
   letter-spacing: 0.08em;
   color: #FFFFFF;
-  background: rgba(9, 37, 28, 0.55);
+  background: rgba(0, 0, 0, 0.65);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.15);
@@ -1811,7 +1811,7 @@ body.dark-mode .brand-item:hover .brand-logo {
   font-weight: 700;
   letter-spacing: 0.12em;
   color: rgba(255, 255, 255, 0.9);
-  background: rgba(9, 37, 28, 0.55);
+  background: rgba(0, 0, 0, 0.65);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.15);
@@ -1850,8 +1850,8 @@ body.dark-mode .brand-item:hover .brand-logo {
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 24px 18px 18px;
-  background: linear-gradient(to top, rgba(9, 37, 28, 0.88) 0%, rgba(9, 37, 28, 0.4) 60%, transparent 100%);
+  padding: 20px 16px 16px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.35) 60%, transparent 100%);
   z-index: 9;
   display: flex;
   flex-direction: column;
@@ -1896,43 +1896,43 @@ body.dark-mode .brand-item:hover .brand-logo {
   left: 0;
   right: 0;
   width: 100%;
-  padding: 28px 18px 18px;
+  padding: 16px 14px 12px;
   z-index: 15;
   background: transparent;
   border-radius: 0 0 calc(var(--radius-xl) - 1px) calc(var(--radius-xl) - 1px);
   
   /* Positioned at bottom, animated on hover */
-  transform: translateY(calc(100% + 60px));
+  transform: translateY(calc(100% + 35px));
   opacity: 0;
   pointer-events: none;
   transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
               opacity 0.35s ease;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 6px;
   color: #FFFFFF;
 }
 
-/* Feathered smooth blur background - no hard edge */
+/* Feathered smooth blur background - no hard edge, pure neutral dark glass */
 .verve-reel-hover-panel::before {
   content: "";
   position: absolute;
-  inset: -60px 0 0 0;
+  inset: -32px 0 0 0;
   z-index: -1;
   pointer-events: none;
   border-radius: 0 0 calc(var(--radius-xl) - 1px) calc(var(--radius-xl) - 1px);
   background: linear-gradient(
     to top,
-    rgba(9, 37, 28, 0.98) 0%,
-    rgba(9, 37, 28, 0.94) 40%,
-    rgba(9, 37, 28, 0.72) 65%,
-    rgba(9, 37, 28, 0.25) 85%,
+    rgba(10, 10, 10, 0.94) 0%,
+    rgba(10, 10, 10, 0.85) 45%,
+    rgba(10, 10, 10, 0.48) 75%,
+    rgba(10, 10, 10, 0.12) 90%,
     transparent 100%
   );
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.35) 25px, black 65px, black 100%);
-  mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.35) 25px, black 65px, black 100%);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.4) 14px, black 32px, black 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.4) 14px, black 32px, black 100%);
 }
 
 .verve-reel-card:hover .verve-reel-hover-panel,
@@ -1967,7 +1967,7 @@ body.dark-mode .brand-item:hover .brand-logo {
 }
 
 .verve-panel-title {
-  font-size: 1.25rem;
+  font-size: 1.12rem;
   font-weight: 700;
   letter-spacing: -0.02em;
   color: #FFFFFF;
@@ -1976,24 +1976,21 @@ body.dark-mode .brand-item:hover .brand-logo {
 }
 
 .verve-panel-kicker {
-  font-size: 0.82rem;
+  font-size: 0.76rem;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(255, 255, 255, 0.82);
   margin: 0;
 }
 
 .verve-panel-desc {
-  font-size: 0.78rem;
-  line-height: 1.5;
-  color: rgba(255, 255, 255, 0.75);
-  margin: 0;
+  display: none;
 }
 
 .verve-panel-specs {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 2px;
+  gap: 5px;
+  margin-top: 0;
 }
 
 .verve-spec-tag {
@@ -2003,8 +2000,8 @@ body.dark-mode .brand-item:hover .brand-logo {
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: var(--radius-pill);
-  padding: 3px 9px;
-  font-size: 0.7rem;
+  padding: 2px 8px;
+  font-size: 0.68rem;
   font-weight: 500;
   color: #F8EADC;
 }
@@ -2016,7 +2013,7 @@ body.dark-mode .brand-item:hover .brand-logo {
 }
 
 .verve-hud-row {
-  margin-top: 4px;
+  margin-top: 1px;
 }
 
 .verve-hud-row .showcase-progress-track {
@@ -3404,7 +3401,7 @@ body.dark-mode .metric-box-4 .metric-desc {
     transform: translateY(0);
     opacity: 1;
     pointer-events: auto;
-    padding: 24px 16px 16px;
+    padding: 16px 14px 12px;
   }
 
   .verve-reel-initial-bar {
@@ -4117,10 +4114,6 @@ body.dark-mode .metric-box-4 .metric-desc {
                   <h4 class="verve-panel-title">Elysian Silhouette</h4>
                   <p class="verve-panel-kicker">High-Fashion Editorial Motion</p>
 
-                  <p class="verve-panel-desc">
-                    An intimate high-fashion study in movement and silhouette, capturing natural drape, architectural lighting transitions, and fluid model expression for Verve.
-                  </p>
-
                   <div class="verve-panel-specs">
                     <span class="verve-spec-tag">
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
@@ -4129,14 +4122,6 @@ body.dark-mode .metric-box-4 .metric-desc {
                     <span class="verve-spec-tag">
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
                       Sony A7R II
-                    </span>
-                    <span class="verve-spec-tag">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                      Continuous Light
-                    </span>
-                    <span class="verve-spec-tag">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon"><path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"></path><line x1="16" y1="8" x2="2" y2="22"></line><line x1="17.5" y1="15" x2="9" y2="15"></line></svg>
-                      Editorial Motion
                     </span>
                   </div>
 
@@ -4237,9 +4222,6 @@ body.dark-mode .metric-box-4 .metric-desc {
                   <h4 class="verve-panel-title">Convergence</h4>
                   <p class="verve-panel-kicker">Flagship Dual-Talent Campaign</p>
 
-                  <p class="verve-panel-desc">
-                    High-energy commercial staging featuring synchronized talent movement, motorized gimbal tracking, and dynamic contrast grading tailored for Verve.
-                  </p>
 
                   <div class="verve-panel-specs">
                     <span class="verve-spec-tag">
@@ -4249,14 +4231,6 @@ body.dark-mode .metric-box-4 .metric-desc {
                     <span class="verve-spec-tag">
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
                       DJI RS4 Gimbal
-                    </span>
-                    <span class="verve-spec-tag">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                      60fps High Frame Rate
-                    </span>
-                    <span class="verve-spec-tag">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon"><path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"></path><line x1="16" y1="8" x2="2" y2="22"></line><line x1="17.5" y1="15" x2="9" y2="15"></line></svg>
-                      Commercial Staging
                     </span>
                   </div>
 
@@ -4357,9 +4331,6 @@ body.dark-mode .metric-box-4 .metric-desc {
                   <h4 class="verve-panel-title">Kinetic Rhythm</h4>
                   <p class="verve-panel-kicker">Omnichannel Commercial Montage</p>
 
-                  <p class="verve-panel-desc">
-                    Fast-paced editorial montage cut to micro-beat audio transitions, engineered for maximum audience retention across modern digital platforms for Verve.
-                  </p>
 
                   <div class="verve-panel-specs">
                     <span class="verve-spec-tag">
@@ -4369,14 +4340,6 @@ body.dark-mode .metric-box-4 .metric-desc {
                     <span class="verve-spec-tag">
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
                       Premiere Pro
-                    </span>
-                    <span class="verve-spec-tag">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                      Micro-Beat Sync
-                    </span>
-                    <span class="verve-spec-tag">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon"><path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"></path><line x1="16" y1="8" x2="2" y2="22"></line><line x1="17.5" y1="15" x2="9" y2="15"></line></svg>
-                      Dynamic Montage
                     </span>
                   </div>
 
