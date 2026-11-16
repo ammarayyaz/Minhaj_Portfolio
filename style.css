@@ -3101,6 +3101,10 @@ body.dark-mode .metric-box-4 .metric-desc {
     padding: 24px 20px;
   }
 
+  .frame-bottom-left:empty {
+    display: none;
+  }
+
   .frame-bottom-center {
     display: flex;
     justify-content: flex-start;
